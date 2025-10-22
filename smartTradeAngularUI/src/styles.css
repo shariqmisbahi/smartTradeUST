@@ -1,0 +1,262 @@
+/* --- MUST be first: AG Grid theme imports --- */
+@import "ag-grid-community/styles/ag-grid.css";
+@import "ag-grid-community/styles/ag-theme-alpine.css";
+
+/* Base */
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* ---- Dialog surface: rounded, subtle elevation ---- */
+.param-wizard-panel .mat-mdc-dialog-surface {
+  border-radius: 16px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  background: #f7f7fb; /* soft surface */
+}
+
+/* Inner content card */
+.param-wizard-panel .content {
+  background: #fff;
+  border-radius: 14px;
+  padding: 16px 16px 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* ---- Stepper: single-line labels, scroll if overflow ---- */
+.param-wizard-panel .mat-horizontal-stepper-header-container {
+  overflow-x: auto;
+  flex-wrap: nowrap !important;
+}
+.param-wizard-panel .mat-horizontal-stepper-header {
+  flex: 0 0 auto !important;
+  height: 48px;
+}
+.param-wizard-panel .mat-step-text-label {
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  font-weight: 600;
+}
+
+/* ---- Bigger, bolder parameter labels ---- */
+.param-wizard-panel .mat-mdc-floating-label {
+  font-size: 1.08rem !important;
+  font-weight: 800 !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+
+/* ---- “Fill” fields styled as rounded bordered inputs ---- */
+.param-wizard-panel .field-rich .mat-mdc-text-field-wrapper {
+  border-radius: 12px !important;
+  border: 1px solid #cfd2dc !important;
+  background: #fff !important;
+  padding: 0 10px !important;
+}
+.param-wizard-panel .field-rich .mdc-line-ripple {
+  display: none !important;
+}
+.param-wizard-panel
+  .field-rich.mdc-text-field--focused
+  .mat-mdc-text-field-wrapper,
+.param-wizard-panel .field-rich:hover .mat-mdc-text-field-wrapper {
+  border-color: #5b6ac6 !important;
+  box-shadow: 0 0 0 3px rgba(91, 106, 198, 0.12);
+}
+
+/* Comfortable input height */
+.param-wizard-panel .mat-mdc-form-field-infix {
+  min-height: 56px;
+  padding-top: 16px;
+}
+
+/* Input text richer */
+.param-wizard-panel .mat-mdc-input-element {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Hints: larger, richer + small “?” icon */
+.param-wizard-panel .mat-mdc-form-field-subscript-wrapper,
+.param-wizard-panel .mat-mdc-form-field-hint,
+.param-wizard-panel .mat-mdc-form-field-error {
+  font-size: 0.98rem !important;
+  font-weight: 650;
+  color: #3d3f44;
+}
+.param-wizard-panel .hint-icon {
+  font-size: 18px;
+  vertical-align: -3px;
+  margin-right: 6px;
+  opacity: 0.8;
+}
+
+/* Subtitle: make it bold and readable */
+.param-wizard-panel .subtitle {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* Comfortable field spacing so hints don't collide with buttons */
+.param-wizard-panel .mat-mdc-form-field {
+  display: block;
+  margin-bottom: 18px; /* ⬅ ensures room below hint text */
+}
+.param-wizard-panel .mat-mdc-form-field-subscript-wrapper {
+  margin-top: 6px; /* extra breathing room above hint */
+}
+
+/* Actions row never overlaps fields */
+.param-wizard-panel .actions {
+  margin-top: 16px !important; /* ⬅ push buttons below hints */
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* Dialog height inside content */
+.param-wizard-panel .mat-mdc-dialog-content {
+  max-height: 80vh; /* taller */
+  min-height: 65vh;
+}
+
+/* Small "?" icon circle (no fonts needed) */
+.param-wizard-panel .hint-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid #6b78d6;
+  color: #6b78d6;
+  font-size: 12px;
+  font-weight: 800;
+  margin-right: 6px;
+}
+
+.param-wizard-panel .review-card-time-range {
+  background: #fff;
+  border: 1px solid #e1e4ef;
+  height: 120px;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.param-wizard-panel .review-card {
+  background: #fff;
+  border: 1px solid #e1e4ef;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+.param-wizard-panel .review-card h4 {
+  margin: 0 0 8px;
+  font-weight: 800;
+}
+.param-wizard-panel .review-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.param-wizard-panel .review-card li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px dashed #e5e7f3;
+}
+.param-wizard-panel .review-card li:last-child {
+  border-bottom: 0;
+}
+.param-wizard-panel .review-card li span {
+  color: #555;
+}
+.param-wizard-panel .review-card li b {
+  font-weight: 800;
+}
+
+/* Sum-of-weights line: warn colour when off from 1 */
+.param-wizard-panel .sum-line {
+  margin-top: 8px;
+  font-weight: 700;
+}
+.param-wizard-panel .sum-line.warn {
+  color: #b00020;
+}
+
+/* Compact one-line time range chip */
+.param-wizard-panel .time-range {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 10px; /* small height footprint */
+}
+.param-wizard-panel .time-label {
+  font-weight: 800;
+  color: #333;
+}
+.param-wizard-panel .time-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 9999px; /* pill */
+  background: #eef0ff;
+  border: 1px solid #d6dcff;
+  font-weight: 700;
+  font-size: 0.92rem; /* compact, readable */
+  color: #2f3b8f;
+  letter-spacing: 0.1px;
+}
+
+/* Ensure overlay can sit on top of the dialog content */
+.param-wizard-panel .content {
+  position: relative;
+}
+
+/* Full-cover overlay with GIF + message */
+.param-wizard-panel .submit-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.78);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  z-index: 5;
+  text-align: center;
+}
+.param-wizard-panel .loader-gif {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+.param-wizard-panel .submit-text {
+  font-weight: 800;
+  color: #333;
+}
+/* Reset runaway SVG sizing for inline icons */
+svg {
+  width: auto;
+  height: auto;
+}
+
+/* Constrain icons used in metric cards only */
+.metric-card [data-icon] {
+  width: 1.5rem; /* 24px */
+  height: 1.5rem; /* 24px */
+  flex-shrink: 0;
+}
+.metric-card [data-icon-lg] {
+  width: 3rem; /* 48px */
+  height: 3rem; /* 48px */
+  flex-shrink: 0;
+}

@@ -1,0 +1,289 @@
+:host {
+  font-family: var(--app-font-sans);
+}
+
+/* Page shell */
+.home-page {
+  padding: 18px;
+  background: #f8fafc; /* lighter slate to match PD card contrast */
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Hero — visually aligned with Pump & Dump “pd-card” tone */
+.homepage-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0; /* slate-200 like PD border */
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.06); /* subtle depth like PD */
+}
+.header-title {
+  margin: 0;
+  font-size: clamp(22px, 3.2vw, 34px);
+  line-height: 1.15;
+  background: radial-gradient(
+    120% 120% at 0% 0%,
+    #111827 0%,
+    #0f172a 40%,
+    #1f2937 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent; /* same headline treatment as PD */
+}
+.subtitle {
+  color: #334155;
+  margin: 6px 0 0;
+}
+
+/* GROUPS */
+.groups {
+  display: grid;
+  gap: 18px;
+}
+
+/* Group header with gradient bar (borrowed motif) */
+.group {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.05);
+}
+.group-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 2px 0 12px;
+  font-weight: sans-serif;
+  font-size: 2rem;
+  color: oklch(0.446 0.03 256.802);
+  color: #0f172a;
+  position: relative;
+}
+.group-title::after {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 100%;
+  border-radius: 2px;
+  /*background: linear-gradient(90deg, #7c3aed, #06b6d4);  PD gradient */
+  opacity: 0.9;
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+}
+
+.subHeading {
+  font-weight: sans-serif;
+  font-size: 1.5rem;
+  color: oklch(0.446 0.03 256.802);
+}
+
+.cardbHeading {
+  font-weight: sans-serif;
+  font-size: 18px;
+  color: oklch(0.446 0.03 256.802);
+}
+
+/* Numbered chip for groups */
+.group-chip {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  font-weight: sans-serif;
+  font-size: 1.5rem;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+.chip-1 {
+  background: linear-gradient(135deg, #22c55e, #3b82f6);
+} /* PD pump chip */
+.chip-2 {
+  background: linear-gradient(135deg, #7c3aed, #06b6d4);
+}
+.chip-3 {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+.chip-4 {
+  background: linear-gradient(135deg, #06b6d4, #38bdf8);
+}
+.chip-5 {
+  background: linear-gradient(135deg, #a78bfa, #34d399);
+}
+.chip-6 {
+  background: linear-gradient(135deg, #ef4444, #f97316);
+}
+.chip-7 {
+  background: linear-gradient(135deg, #10b981, #0ea5e9);
+}
+
+/* Cards inside groups — aligned with your existing Home cards but tuned to PD look */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+@media (max-width: 1024px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card2 {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0; /* slate-200 like PD */
+  border-radius: 16px;
+  padding: 14px;
+  text-decoration: none;
+  color: #0f172a;
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    border-color 0.15s ease;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #d4d1d1;
+  border: 1px solid #e2e8f0; /* slate-200 like PD */
+  border-radius: 16px;
+  padding: 14px;
+  text-decoration: none;
+  color: #0f172a;
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    border-color 0.15s ease;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: #bae6fd;
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.1);
+}
+.card-icon {
+  font-size: 22px;
+}
+.card h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.card small {
+  color: #64748b;
+}
+
+/* Footer (kept consistent with your current implementation) */
+.web-footer {
+  background: #f8f9fa;
+}
+.web-footer__bottom-bar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.status-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+}
+.status-indicator {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  background-color: #4caf50;
+}
+.status-text {
+  font-size: 0.875rem;
+}
+.web-footer__links {
+  display: flex;
+  align-items: center;
+}
+.footer-link,
+.cookie-settings {
+  font-size: 0.875rem;
+  margin-right: 1rem;
+  text-decoration: none;
+  color: #555;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.footer-link:hover,
+.cookie-settings:hover {
+  text-decoration: underline;
+}
+.cookie-settings {
+  padding: 0;
+}
+.footer-link + .cookie-settings,
+.cookie-settings + .footer-copyright {
+  margin-left: 1rem;
+}
+.footer-copyright {
+  font-size: 0.75rem;
+  color: #888;
+}
+/* Icon styling to match left nav */
+.card lucide-icon {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2; /* same line weight */
+  color: #0891b2; /* icon-teal */
+}
+
+/* optional class if you want to tag icons in HTML */
+.icon-teal {
+  color: #0891b2;
+} /* same as sidenav */
+.hoverColor {
+  color: #0e7490;
+} /* darker hover */
+
+.card:hover lucide-icon,
+.card:hover .icon-teal {
+  color: #0e7490; /* match left-nav hover */
+}
+
+/* (keep your existing .card-icon font-size etc. or replace with:) */
+.card .card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.footerDivision {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #777679, #0891b2);
+  opacity: 0.9;
+  bottom: -6px;
+  margin-top: 10px;
+  left: 0;
+}

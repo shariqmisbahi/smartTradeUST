@@ -1,0 +1,30 @@
+<!-- <div>
+  <div class="hero-line-before"></div>
+  <p class="alert-banner2">
+    Step 3: Verification using Internal company database.
+  </p>
+</div> -->
+<div class="button-row">
+  <button
+    *ngIf="showAction2"
+    class="btn primary"
+    (click)="verifyWithInternalData()"
+  >
+    <mat-icon>verified</mat-icon>
+    Verification/Validation (AI)
+  </button>
+  <!-- 
+  <button
+    mat-raised-button
+    color="primary"
+    class="cta ml-btn"
+    (click)="verifyWithInternalData()"
+    [disabled]="verifying"
+    aria-label="Verification using Internal Data"
+    *ngIf="showAction2"
+  >
+    <mat-icon>verified</mat-icon>
+    <span *ngIf="!verifying">Verification using Internal Data</span>
+    <span *ngIf="verifying">Verifying…</span>
+  </button> -->
+</div>

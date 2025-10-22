@@ -1,0 +1,132 @@
+<h2 mat-dialog-title>Configure Pump & Dump Rules</h2>
+
+<mat-dialog-content [formGroup]="form" class="content-grid">
+  <section class="section">
+    <h3>Time Window</h3>
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Start (ISO)</mat-label>
+        <input
+          matInput
+          formControlName="start"
+          placeholder="e.g., 2025-08-13T00:00:00Z"
+        />
+        <mat-error *ngIf="form.get('start')?.invalid"
+          >Start is required</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>End (ISO)</mat-label>
+        <input
+          matInput
+          formControlName="end"
+          placeholder="e.g., 2025-08-13T23:59:59Z"
+        />
+        <mat-error *ngIf="form.get('end')?.invalid">End is required</mat-error>
+      </mat-form-field>
+    </div>
+  </section>
+
+  <section formGroupName="params" class="section">
+    <h3>Params</h3>
+    <div class="grid-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Window Minutes</mat-label>
+        <input matInput type="number" formControlName="window_minutes" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Dump Window Minutes</mat-label>
+        <input matInput type="number" formControlName="dump_window_minutes" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Pump %</mat-label>
+        <input matInput type="number" step="0.1" formControlName="pump_pct" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Dump %</mat-label>
+        <input matInput type="number" step="0.1" formControlName="dump_pct" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Vol Window</mat-label>
+        <input matInput type="number" formControlName="vol_window" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Vol Mult</mat-label>
+        <input matInput type="number" step="0.1" formControlName="vol_mult" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Min Bars</mat-label>
+        <input matInput type="number" formControlName="min_bars" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-2">
+        <mat-label>Resample Rule</mat-label>
+        <mat-select formControlName="resample_rule">
+          <mat-option value="1min">1min</mat-option>
+          <mat-option value="5min">5min</mat-option>
+          <mat-option value="15min">15min</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </section>
+
+  <section formGroupName="weights" class="section">
+    <h3>Weights</h3>
+    <div class="grid-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Pump Strength</mat-label>
+        <input
+          matInput
+          type="number"
+          step="0.01"
+          formControlName="pump_strength"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Dump Strength</mat-label>
+        <input
+          matInput
+          type="number"
+          step="0.01"
+          formControlName="dump_strength"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Volume Strength</mat-label>
+        <input
+          matInput
+          type="number"
+          step="0.01"
+          formControlName="volume_strength"
+        />
+      </mat-form-field>
+    </div>
+  </section>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button mat-dialog-close>Cancel</button>
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="execute()"
+    [disabled]="isSubmitting"
+  >
+    <mat-icon *ngIf="!isSubmitting">play_arrow</mat-icon>
+    <mat-progress-spinner
+      *ngIf="isSubmitting"
+      mode="indeterminate"
+      diameter="18"
+    ></mat-progress-spinner>
+    <span>{{ isSubmitting ? "Running…" : "Execute" }}</span>
+  </button>
+</mat-dialog-actions>

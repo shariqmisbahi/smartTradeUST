@@ -1,0 +1,17 @@
+<div class="align-center grid-container">
+  <ag-grid-angular
+    [theme]="'legacy'"
+    [class]="gridThemeClass"
+    style="width: 100%; height: 60vh; overflow-x: auto"
+    [rowData]="rowDataGrid1"
+    [columnDefs]="colDefsGrid1"
+    [defaultColDef]="defaultColDefGrid1"
+    [pagination]="true"
+    [paginationPageSize]="20"
+    [quickFilterText]="quickFilter"
+    [animateRows]="true"
+    [getRowId]="getRowId1"
+    (gridReady)="onGridReady($event)"
+  >
+  </ag-grid-angular>
+</div>

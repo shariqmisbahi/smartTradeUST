@@ -1,0 +1,84 @@
+.step-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 14px;
+  min-height: 300px;
+}
+.step-card.disabled {
+  opacity: 0.65;
+  filter: grayscale(0.2);
+  pointer-events: none;
+}
+.step-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.title {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.badge {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: #0ea5e9;
+  color: #fff;
+  font-weight: 700;
+}
+.heading {
+  font-weight: 500;
+  color: oklch(0.373 0.034 259.733);
+}
+.sub {
+  color: #64748b;
+  font-size: 12px;
+  margin-top: 2px;
+}
+.btn {
+  /* border: 1px solid #0ea5e9;
+  background: #0ea5e9; */
+  border: 1px solid #5eead4;
+  background: #99f6e4;
+  color: rgb(0, 0, 0);
+  border-radius: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.btn.primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.step-card__body {
+  position: relative;
+}
+.lock {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(248, 250, 252, 0.8);
+  border-radius: 16px;
+  border: 1px dashed #cbd5e1;
+}
+/* hide the round index badge */
+:host ::ng-deep app-step-section .step-index,
+:host ::ng-deep app-step-section .index-badge,
+:host ::ng-deep app-step-section .index-dot,
+:host ::ng-deep app-step-section .step-number {
+  display: none !important;
+}
+
+/* remove any left padding reserved for the icon (adjust selectors as needed) */
+:host ::ng-deep app-step-section .step-header {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  gap: 0.5rem; /* optional: tighten spacing */
+}

@@ -1,0 +1,40 @@
+# ---- Angular / Node
+smartTradeAngularUI/node_modules/
+smartTradeAngularUI/dist/
+smartTradeAngularUI/.angular/
+smartTradeAngularUI/.vite/
+smartTradeAngularUI/coverage/
+*.log
+
+# ---- Python
+pythonAPI/.venv/
+pythonAPI/__pycache__/
+pythonAPI/**/*.pyc
+pythonAPI/.env
+pythonAPI/.env.*
+
+# ---- Project data (keep templates, ignore generated data)
+pythonAPI/data/simulated/
+pythonAPI/data/results/
+pythonAPI/data/results/**/*
+# allow templates
+!pythonAPI/data/templates/
+!pythonAPI/data/templates/**
+
+# ---- .NET (if present later)
+**/bin/
+**/obj/
+*.user
+*.suo
+*.csproj.user
+
+# ---- OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ---- Docker / local env
+**/.docker/
+.env
+env.txt

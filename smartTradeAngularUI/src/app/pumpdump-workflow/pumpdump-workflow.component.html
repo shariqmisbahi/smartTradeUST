@@ -1,0 +1,138 @@
+<div class="page">
+  <div class="mb-2">
+    <p class="subHeading">Detection and Analysis Workflow</p>
+  </div>
+  <!-- <div class="grid-placeholder">
+    <img
+      src="assets/topDashBoard2.png"
+      alt="Pump & Dump"
+      class="w-12 h-12 mb-4"
+    />
+  </div> -->
+  <!-- Shariq start -->
+  <section class="kpis-grid">
+    <!-- Card 1 -->
+    <article class="kpi-card">
+      <div class="kpi-header">
+        <span class="kpi-title">Date Range</span>
+      </div>
+      <div class="kpi-value">4 days</div>
+      <div class="kpi-delta down">
+        <span kpi-delta.down>17 Oct 2025 – 20 Oct 2025 </span>
+      </div>
+    </article>
+
+    <!-- Card 2 -->
+
+    <article class="kpi-card">
+      <div class="kpi-header">
+        <span class="kpi-title">Total Alerts</span>
+      </div>
+      <div class="kpi-value">6789 <span class="kpi-unit"></span></div>
+      <div>
+        <span class="kpi-delta red">+9.84%</span>
+      </div>
+    </article>
+
+    <!-- Card 3 -->
+    <article class="kpi-card">
+      <div class="kpi-header">
+        <span class="kpi-title">Pump & Dump</span>
+      </div>
+      <div class="kpi-value">2145 <span class="kpi-unit"></span></div>
+      <div>
+        <span class="kpi-delta red">+4.2%</span>
+      </div>
+    </article>
+
+    <!-- Card 4 -->
+    <article class="kpi-card">
+      <div class="kpi-header">
+        <span class="kpi-title">High-Risk Alerts</span>
+      </div>
+      <div class="kpi-value">20</div>
+      <div class="kpi-delta red">+4.1%</div>
+    </article>
+  </section>
+  <div class="mb-6">
+    <span class="text-gray-500">
+      * Alert trend (% up or down) compared with the previous cycle.
+    </span>
+  </div>
+  <!-- Shariq End -->
+
+  <div class="mb-6">
+    <p class="text-gray-700">Configure Pump & Dump in 3 easy Steps</p>
+  </div>
+  <!-- Header stepper (matches your screenshot) -->
+  <div class="stepper">
+    <div class="step" [class.active]="step() >= 1" [class.done]="done()[0]">
+      <div class="dot">1</div>
+      <div class="bar"></div>
+      <div class="label">Configure Parameters</div>
+    </div>
+
+    <div class="step" [class.active]="step() >= 2" [class.done]="done()[1]">
+      <div class="dot">2</div>
+      <div class="bar"></div>
+      <div class="label">AI-Driven Inference</div>
+    </div>
+
+    <div class="step" [class.active]="step() >= 3" [class.done]="done()[2]">
+      <div class="dot">3</div>
+      <div class="label">Final Verification</div>
+    </div>
+  </div>
+
+  <!-- Step 1: Rules -->
+  <app-step-section
+    [index]="1"
+    title="Step 1 — Rules Calibration"
+    subtitle="Apply structured rules to distinguish genuine manipulations from background noise"
+    [enabled]="true"
+    [completeLabel]="'Continue to Step 2'"
+    (complete)="onComplete(1)"
+    [showIndex]="false"
+  >
+    <app-rule-driven-calibration
+      (finished)="onComplete(1)"
+    ></app-rule-driven-calibration>
+  </app-step-section>
+
+  <!-- Step 2: ML -->
+  <app-step-section
+    [index]="2"
+    title="Step 2 — AI Inference"
+    subtitle="Execute the AI ensemble to deliver final scoring and decision intelligence."
+    [enabled]="done()[0]"
+    [completeLabel]="'Continue to Step 3'"
+    [completeDisabled]="!done()[0]"
+    (complete)="onComplete(2)"
+    [showIndex]="false"
+  >
+    <app-ml-driven-calibration
+      (finished)="onComplete(2)"
+      [showAction]="step() >= 2"
+    ></app-ml-driven-calibration>
+  </app-step-section>
+
+  <!-- Step 3: Evidence -->
+  <app-step-section
+    [index]="3"
+    title="Step 3 — Final Verification and generation of Transaction Report"
+    subtitle="Correlate identified anomalies with internal systems to validate findings and produce the final transaction report."
+    [enabled]="done()[1]"
+    [completeLabel]="'Finish'"
+    [completeDisabled]="!done()[1]"
+    (complete)="onComplete(3)"
+    [showIndex]="false"
+  >
+    <app-final-verification
+      (finished)="onComplete(3)"
+      [showAction2]="step() >= 3"
+    ></app-final-verification>
+  </app-step-section>
+</div>
+<!-- <div class="grid-placeholder">
+          Place your <strong>Rules Grid</strong> here
+        </div> -->

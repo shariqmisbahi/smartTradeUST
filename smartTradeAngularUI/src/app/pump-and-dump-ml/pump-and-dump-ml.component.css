@@ -1,0 +1,21 @@
+      .toolbar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+      .cta {
+        text-transform: none;
+      }
+      .ml-btn {
+        background: #0b5;
+        color: #fff;
+      }
+      .loader {
+        height: 28px;
+        margin-left: 6px;
+      }
+      .placeholder {
+        padding: 12px;
+        color: #666;
+      }

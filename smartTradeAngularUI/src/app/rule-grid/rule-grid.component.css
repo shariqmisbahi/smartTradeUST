@@ -1,0 +1,9 @@
+/* Center any child (like Grid 2) */
+.align-center,
+.grid-container {
+  width: 100%;
+  overflow-x: auto; /* horizontal scroll if too many columns */
+
+  justify-content: center; /* horizontal center */
+  align-items: center;
+}

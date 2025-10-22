@@ -1,0 +1,111 @@
+<div class="explain-container">
+  <header class="explain-header">
+    <div class="hdr-left">
+      <div class="eyebrow">Alert Explanation</div>
+      <h2 class="title">
+        {{ parent?.security_name }}
+        <span class="muted">({{ parent?.security_type }})</span>
+      </h2>
+      <div class="sub">
+        <span class="chip">Alert: {{ parent?.alert_id }}</span>
+        <span class="chip">Brokerage: {{ parent?.brokerage }}</span>
+        <span class="chip">Pump: {{ parent?.pump_ts }}</span>
+        <span class="chip">Dump: {{ parent?.dump_ts }}</span>
+        <span class="chip strong"
+          >Rubric: {{ parent?.rubric_score | number : "1.3-3" }}</span
+        >
+        <span
+          class="chip"
+          [class.good]="
+            (parent?.decision || '').toLowerCase() === 'true positive'
+          "
+          [class.bad]="
+            (parent?.decision || '').toLowerCase() === 'true negative'
+          "
+        >
+          Decision: {{ parent?.decision }}
+        </span>
+      </div>
+    </div>
+    <button
+      mat-icon-button
+      aria-label="Close"
+      (click)="close()"
+      class="close-btn"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </header>
+
+  <!-- Beautiful cards layout -->
+  <section class="cards" *ngIf="exps?.length; else empty">
+    <article
+      class="card"
+      *ngFor="let e of exps ?? []; trackBy: trackByCriterion"
+      [class.fail]="e?.result === false"
+      [matTooltip]="tooltip(e)"
+      matTooltipPosition="above"
+    >
+      <div class="card-head">
+        <div class="crit">{{ up(e?.criterion) }}</div>
+        <span
+          class="badge"
+          [class.bad]="e?.result === false"
+          [class.good]="e?.result !== false"
+        >
+          {{ e?.result === false ? "FAIL" : "PASS" }}
+        </span>
+      </div>
+      <div class="meaning">{{ e?.meaning }}</div>
+
+      <div class="meta">
+        <span *ngIf="e?.value !== null && e?.value !== undefined" class="mchip"
+          >value: {{ e.value }}</span
+        >
+        <span
+          *ngIf="e?.threshold !== null && e?.threshold !== undefined"
+          class="mchip"
+          >threshold: {{ e.threshold }}</span
+        >
+        <span
+          *ngIf="e?.weight !== null && e?.weight !== undefined"
+          class="mchip"
+          >weight: {{ e.weight }}</span
+        >
+        <span *ngIf="e?.score !== null && e?.score !== undefined" class="mchip"
+          >score: {{ e.score }}</span
+        >
+      </div>
+    </article>
+  </section>
+
+  <div class="legend">
+    <h1 class="legend-heading">
+      <span class="legend-kicker">Legend</span>
+      <span class="legend-title2">What each check means</span>
+    </h1>
+
+    <div class="legend-list">
+      <section
+        class="legend-item"
+        *ngFor="let e of exps; trackBy: trackByCrit"
+        [class.fail]="e?.result === false"
+      >
+        <h3 class="legend-label">Criteria</h3>
+        <div class="legend-crit2">{{ up(e?.criterion) }}</div>
+
+        <h3 class="legend-label">Meaning</h3>
+        <p class="legend-meaning2">{{ e?.meaning }}</p>
+
+        <h3 class="legend-label">Explanation</h3>
+        <p class="legend-layman2">{{ layman(e) }}</p>
+
+        <hr class="legend-sep" />
+      </section>
+    </div>
+  </div>
+
+  <ng-template #empty>
+    <div class="empty">No explanations found for this alert.</div>
+  </ng-template>
+</div>

@@ -1,0 +1,67 @@
+<div class="toolbar">
+  <!-- Your existing button (do not change) -->
+  <button mat-raised-button class="cta" (click)="OpenWizard()">
+    <mat-icon>settings_suggest</mat-icon>
+    Configure True Positive
+  </button>
+
+  <!-- New: Run Calibration (ML) button -->
+  <button
+    mat-raised-button
+    color="primary"
+    class="cta ml-btn"
+    (click)="runCalibration()"
+  >
+    <mat-icon>bolt</mat-icon>
+    Run Calibration (AI)
+  </button>
+
+  <!-- loader GIF -->
+  <img *ngIf="loading" [src]="loaderUrl" class="loader" alt="Loading..." />
+</div>
+
+<mat-tab-group>
+  <mat-tab label="Rule-Based Calibration">
+    <!-- your existing grid -->
+    <div class="align-center grid-container" *ngIf="rowDataGrid2?.length">
+      <ag-grid-angular
+        [theme]="'legacy'"
+        class="ag-theme-alpine explain-grid"
+        style="width: 100%; height: 56vh; overflow: auto"
+        [rowData]="rowDataGrid2"
+        [columnDefs]="colDefsGrid2"
+        [defaultColDef]="defaultColDefGrid2"
+        [pagination]="true"
+        [paginationPageSize]="20"
+        [animateRows]="true"
+        [masterDetail]="true"
+        [detailRowAutoHeight]="true"
+        [detailCellRendererParams]="detailCellRendererParams"
+      >
+      </ag-grid-angular>
+    </div>
+    <div *ngIf="!rowDataGrid2?.length" class="placeholder">
+      No Rule-Based rows.
+    </div>
+  </mat-tab>
+
+  <mat-tab label="ML-based Calibration">
+    <div class="align-center grid-container" *ngIf="rowDataML?.length">
+      <ag-grid-angular
+        [theme]="'legacy'"
+        class="ag-theme-alpine explain-grid"
+        style="width: 100%; height: 56vh; overflow: auto"
+        [rowData]="rowDataML"
+        [columnDefs]="colDefsML"
+        [defaultColDef]="defaultColDefML"
+        [pagination]="true"
+        [paginationPageSize]="20"
+        [animateRows]="true"
+      >
+      </ag-grid-angular>
+    </div>
+    <div *ngIf="!rowDataML?.length" class="placeholder">
+      Run Calibration (AI) to see results.
+    </div>
+  </mat-tab>
+</mat-tab-group>

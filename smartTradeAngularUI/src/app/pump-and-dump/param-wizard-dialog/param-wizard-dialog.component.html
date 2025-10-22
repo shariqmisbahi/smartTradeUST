@@ -1,0 +1,517 @@
+<h2 mat-dialog-title class="title">
+  <span class="title-emoji">⚙</span>
+  Configure Parameters
+</h2>
+
+<!-- Loader overlay (shows during API call) -->
+<div class="submit-overlay" *ngIf="isSubmitting">
+  <img
+    src="assets/rules_to_db.gif"
+    alt="Applying rules to database engine"
+    style="max-width: 100%; height: auto"
+  />
+  <div class="submit-text" [@fadeInOut]="currentIndex">
+    {{ currentText }}
+  </div>
+</div>
+
+<mat-dialog-content class="content">
+  <p class="subtitle">
+    Set pump/dump detection thresholds, windows, and weights. You can review
+    before finishing.
+  </p>
+  <mat-divider></mat-divider>
+
+  <mat-horizontal-stepper [linear]="true" class="stepper">
+    <!-- 1) TIME RANGE -->
+    <mat-step [stepControl]="rangeForm" label="Time Range">
+      <form [formGroup]="rangeForm">
+        <div class="grid2">
+          <mat-form-field
+            appearance="fill"
+            floatLabel="always"
+            class="field-rich"
+          >
+            <mat-label>Start</mat-label>
+            <input
+              matInput
+              type="datetime-local"
+              formControlName="startLocal"
+              required
+            />
+            <mat-hint
+              ><span class="hint-circle">?</span> Beginning of analysis window
+              (local time). Saved as UTC.</mat-hint
+            >
+            <mat-error *ngIf="rangeForm.hasError('rangeInvalid')"
+              >Start must be before End</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="fill"
+            floatLabel="always"
+            class="field-rich"
+          >
+            <mat-label>End</mat-label>
+            <input
+              matInput
+              type="datetime-local"
+              formControlName="endLocal"
+              required
+            />
+            <mat-hint
+              ><span class="hint-circle">?</span> End of analysis window (local
+              time). Saved as UTC.</mat-hint
+            >
+            <mat-error *ngIf="rangeForm.hasError('rangeInvalid')"
+              >End must be after Start</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </form>
+
+      <div class="actions">
+        <button
+          mat-stroked-button
+          color="primary"
+          matStepperNext
+          [disabled]="rangeForm.invalid"
+        >
+          Next
+        </button>
+      </div>
+    </mat-step>
+
+    <!-- 2) WINDOWS -->
+    <mat-step [stepControl]="winForm" label="Windows">
+      <form [formGroup]="winForm">
+        <div class="grid2">
+          <mat-form-field
+            appearance="fill"
+            floatLabel="always"
+            class="field-rich"
+          >
+            <mat-label>Window (minutes)</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="window_minutes"
+              required
+              min="1"
+            />
+            <span matTextSuffix>min</span>
+            <mat-hint
+              ><span class="hint-circle">?</span> Lookback period used to detect
+              a pump within resampled bars.</mat-hint
+            >
+            <mat-error *ngIf="winForm.get('window_minutes')?.invalid"
+              >Required, ≥ 1</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="fill"
+            floatLabel="always"
+            class="field-rich"
+          >
+            <mat-label>Dump Window (minutes)</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="dump_window_minutes"
+              required
+              min="1"
+            />
+            <span matTextSuffix>min</span>
+            <mat-hint
+              ><span class="hint-circle">?</span> Forward window after a pump to
+              check for a dump (reversal).</mat-hint
+            >
+            <mat-error *ngIf="winForm.get('dump_window_minutes')?.invalid"
+              >Required, ≥ 1</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </form>
+
+      <div class="actions">
+        <button mat-stroked-button matStepperPrevious>Previous</button>
+        <button
+          mat-stroked-button
+          color="primary"
+          matStepperNext
+          [disabled]="winForm.invalid"
+        >
+          Next
+        </button>
+      </div>
+    </mat-step>
+
+    <!-- 3) PUMP/DUMP % -->
+    <mat-step [stepControl]="pctForm" label="Pump/Dump %">
+      <form [formGroup]="pctForm">
+        <div class="grid2">
+          <mat-form-field
+            appearance="fill"
+            floatLabel="always"
+            class="field-rich"
+          >
+            <mat-label>Pump %</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="pump_pct"
+              required
+              step="0.1"
+            />
+            <span matTextSuffix>%</span>
+            <mat-hint
+              ><span class="hint-circle">?</span> Minimum % rise inside the
+              window to classify as a pump.</mat-hint
+            >
+            <mat-error *ngIf="pctForm.get('pump_pct')?.invalid"
+              >Required</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="fill"
+            floatLabel="always"
+            class="field-rich"
+          >
+            <mat-label>Dump %</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="dump_pct"
+              required
+              step="0.1"
+            />
+            <span matTextSuffix>%</span>
+            <mat-hint
+              ><span class="hint-circle">?</span> Minimum % drop within the dump
+              window (post-pump).</mat-hint
+            >
+            <mat-error *ngIf="pctForm.get('dump_pct')?.invalid"
+              >Required</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </form>
+
+      <div class="actions">
+        <button mat-stroked-button matStepperPrevious>Previous</button>
+        <button
+          mat-stroked-button
+          color="primary"
+          matStepperNext
+          [disabled]="pctForm.invalid"
+        >
+          Next
+        </button>
+      </div>
+    </mat-step>
+
+    <!-- 4) VOLUME -->
+    <mat-step [stepControl]="volForm" label="Volume">
+      <form [formGroup]="volForm">
+        <div class="grid2">
+          <mat-form-field
+            appearance="fill"
+            floatLabel="always"
+            class="field-rich"
+          >
+            <mat-label>Volume Window</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="vol_window"
+              required
+              min="1"
+            />
+            <span matTextSuffix>bars</span>
+            <mat-hint
+              ><span class="hint-circle">?</span> Bars used to compute the
+              moving-average volume baseline.</mat-hint
+            >
+            <mat-error *ngIf="volForm.get('vol_window')?.invalid"
+              >Required, ≥ 1</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="fill"
+            floatLabel="always"
+            class="field-rich"
+          >
+            <mat-label>Volume Multiplier</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="vol_mult"
+              required
+              step="0.1"
+              min="0"
+            />
+            <mat-hint
+              ><span class="hint-circle">?</span> How many × the baseline volume
+              current volume must exceed.</mat-hint
+            >
+            <mat-error *ngIf="volForm.get('vol_mult')?.invalid"
+              >Required, ≥ 0</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </form>
+
+      <div class="actions">
+        <button mat-stroked-button matStepperPrevious>Previous</button>
+        <button
+          mat-stroked-button
+          color="primary"
+          matStepperNext
+          [disabled]="volForm.invalid"
+        >
+          Next
+        </button>
+      </div>
+    </mat-step>
+
+    <!-- 5) OTHER -->
+    <mat-step [stepControl]="otherForm" label="Other">
+      <form [formGroup]="otherForm">
+        <div class="grid2">
+          <mat-form-field
+            appearance="fill"
+            floatLabel="always"
+            class="field-rich"
+          >
+            <mat-label>Min Bars</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="min_bars"
+              required
+              min="1"
+            />
+            <span matTextSuffix>bars</span>
+            <mat-hint
+              ><span class="hint-circle">?</span> Minimum bars required inside
+              the window to evaluate a signal.</mat-hint
+            >
+            <mat-error *ngIf="otherForm.get('min_bars')?.invalid"
+              >Required, ≥ 1</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="fill"
+            floatLabel="always"
+            class="field-rich"
+          >
+            <mat-label>Resample Rule</mat-label>
+            <mat-select formControlName="resample_rule" required>
+              <mat-option *ngFor="let r of resampleOptions" [value]="r">{{
+                r
+              }}</mat-option>
+            </mat-select>
+            <mat-hint
+              ><span class="hint-circle">?</span> Bar size used for calculations
+              (e.g., 1min, 5min).</mat-hint
+            >
+            <mat-error *ngIf="otherForm.get('resample_rule')?.invalid"
+              >Required</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </form>
+
+      <div class="actions">
+        <button mat-stroked-button matStepperPrevious>Previous</button>
+        <button
+          mat-stroked-button
+          color="primary"
+          matStepperNext
+          [disabled]="otherForm.invalid"
+        >
+          Next
+        </button>
+      </div>
+    </mat-step>
+
+    <!-- 6) WEIGHTS -->
+    <mat-step [stepControl]="wForm" label="Weights">
+      <form [formGroup]="wForm">
+        <div class="grid2">
+          <mat-form-field
+            appearance="fill"
+            floatLabel="always"
+            class="field-rich"
+          >
+            <mat-label>Pump Weight*</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="pump_strength"
+              required
+              step="0.01"
+              min="0"
+              max="1"
+            />
+            <mat-hint
+              ><span class="hint-circle">?</span> Relative importance of pump
+              move in final score (0–1).</mat-hint
+            >
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="fill"
+            floatLabel="always"
+            class="field-rich"
+          >
+            <mat-label>Dump Weight*</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="dump_strength"
+              required
+              step="0.01"
+              min="0"
+              max="1"
+            />
+            <mat-hint
+              ><span class="hint-circle">?</span> Relative importance of dump
+              move in final score (0–1).</mat-hint
+            >
+          </mat-form-field>
+        </div>
+
+        <mat-form-field
+          appearance="fill"
+          floatLabel="always"
+          class="field-rich full"
+        >
+          <mat-label>Volume Weight*</mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="volume_strength"
+            required
+            step="0.01"
+            min="0"
+            max="1"
+          />
+          <mat-hint
+            ><span class="hint-circle">?</span> Relative importance of volume
+            spike (0–1). Must sum to 1 with others.</mat-hint
+          >
+        </mat-form-field>
+      </form>
+
+      <div class="actions">
+        <button mat-stroked-button matStepperPrevious>Previous</button>
+        <button
+          mat-stroked-button
+          color="primary"
+          matStepperNext
+          [disabled]="wForm.invalid"
+        >
+          Review
+        </button>
+      </div>
+    </mat-step>
+
+    <!-- 7) REVIEW -->
+    <mat-step label="Review">
+      <table>
+        <tr>
+          <td>
+            <!-- Compact Time Range line -->
+            <div class="review-cards">
+              <div class="time-range">
+                <span class="time-label">Time Range:</span>
+                <span class="time-chip">
+                  {{ rangeForm.value.startLocal }} →
+                  {{ rangeForm.value.endLocal }}
+                </span>
+              </div>
+              <!-- Cards for Weights -->
+              <div class="review-card">
+                <h4><b>Weights</b></h4>
+                <ul>
+                  <li>
+                    <span>pump_strength</span
+                    ><b>{{ wForm.value.pump_strength }}</b>
+                  </li>
+                  <li>
+                    <span>dump_strength</span
+                    ><b>{{ wForm.value.dump_strength }}</b>
+                  </li>
+                  <li>
+                    <span>volume_strength</span
+                    ><b>{{ wForm.value.volume_strength }}</b>
+                  </li>
+                </ul>
+                <div
+                  class="sum-line"
+                  [class.warn]="weightSum < 0.98 || weightSum > 1.02"
+                >
+                  Sum of weights: {{ weightSum | number : "1.2-2" }} (should
+                  equal 1.00)
+                </div>
+              </div>
+            </div>
+          </td>
+          <td style="width: 350px">
+            <!-- Cards for Params  -->
+            <div class="review-cards">
+              <div class="review-card">
+                <h4><b>Parameters</b></h4>
+                <ul>
+                  <li>
+                    <span>window_minutes</span
+                    ><b>{{ winForm.value.window_minutes }}</b>
+                  </li>
+                  <li>
+                    <span>dump_window_minutes</span
+                    ><b>{{ winForm.value.dump_window_minutes }}</b>
+                  </li>
+                  <li>
+                    <span>pump_pct</span><b>{{ pctForm.value.pump_pct }}</b>
+                  </li>
+                  <li>
+                    <span>dump_pct</span><b>{{ pctForm.value.dump_pct }}</b>
+                  </li>
+                  <li>
+                    <span>vol_window</span><b>{{ volForm.value.vol_window }}</b>
+                  </li>
+                  <li>
+                    <span>vol_mult</span><b>{{ volForm.value.vol_mult }}</b>
+                  </li>
+                  <li>
+                    <span>min_bars</span><b>{{ otherForm.value.min_bars }}</b>
+                  </li>
+                  <li>
+                    <span>resample_rule</span
+                    ><b>{{ otherForm.value.resample_rule }}</b>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <div class="actions">
+        <button mat-raised-button color="primary">Previous</button>
+        <button mat-raised-button color="primary" (click)="finish()">
+          Execute
+        </button>
+        <!-- <button mmat-raised-button color="primary" (click)="close()">
+          Cancel
+        </button> -->
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</mat-dialog-content>

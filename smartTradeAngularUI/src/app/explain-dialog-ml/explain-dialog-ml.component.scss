@@ -1,0 +1,173 @@
+.explain-container {
+  width: min(1200px, 96vw);
+  // max-height: min(80vh, 800px);
+  overflow: auto;
+  padding: 14px 16px 18px;
+  height: 75vh; /* or 100dvh for mobile-safe full height */
+  background: #fff;
+}
+
+.explain-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.hdr-left .eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #475569;
+  font-weight: 700;
+}
+.hdr-left .title {
+  margin: 2px 0 6px;
+  font-size: clamp(18px, 2.6vw, 26px);
+  color: #0f172a;
+}
+.hdr-left .muted {
+  color: #64748b;
+  font-weight: 600;
+}
+.sub {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  font-weight: 700;
+  font-size: 12px;
+  color: #374151;
+}
+.chip.strong {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+  color: #1e3a8a;
+}
+.chip.good {
+  background: #d1fae5;
+  border-color: #10b981;
+  color: #065f46;
+}
+.chip.bad {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+.explain-report {
+  font-family: "Graphik", "Verdana", sans-serif;
+  line-height: 1.5;
+  padding: 1rem;
+
+  h2 {
+    margin-bottom: 0.5rem;
+  }
+  h3 {
+    margin-top: 1.2rem;
+    color: #444;
+  }
+  .layman {
+    color: #333;
+    font-style: italic;
+    margin: 0.5rem 0;
+  }
+  ul {
+    margin: 0.5rem 0 1rem 1.2rem;
+  }
+  .bad {
+    color: red;
+    font-weight: bold;
+  }
+  .good {
+    color: green;
+    font-weight: bold;
+  }
+}
+.explain-btn {
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: white;
+  font-size: 12px;
+  line-height: 22px;
+  cursor: pointer;
+}
+.summary {
+  margin: 8px 0 12px;
+}
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
+}
+.sbox {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  padding: 10px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+.slabel {
+  font-size: 12px;
+  opacity: 0.8;
+}
+.svalue {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.sthreshold {
+  font-size: 12px;
+  opacity: 0.75;
+  margin-top: 2px;
+}
+.sstatus {
+  margin-top: 4px;
+  font-weight: 600;
+}
+.highRisk {
+  color: #c62828;
+  font-weight: bold;
+}
+.lowRisk {
+  color: #1a7f37;
+  font-weight: bold;
+}
+.mediumRisk {
+  color: #fbfd91;
+  font-weight: bold;
+}
+.muted {
+  color: #eea228;
+}
+.narrative h3 {
+  margin: 10px 0 4px;
+}
+.explain-block .crit {
+  margin: 4px 0;
+}
+.explain-block .meaning {
+  margin: 2px 0 6px;
+  color: #444;
+}
+.explain-block .layman {
+  margin: 0 0 6px;
+}
+.facts {
+  margin: 0 0 6px 16px;
+}
+.status {
+  margin-bottom: 6px;
+}
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  font-size: 12px;
+}

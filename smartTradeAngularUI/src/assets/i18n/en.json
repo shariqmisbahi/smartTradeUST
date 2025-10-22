@@ -1,0 +1,19 @@
+{
+  "TITLE": "Malaysian Exchange Trade Monitoring Dashboard",
+  "SUBTITLE": "This project simulates real-time trading on the Malaysian stock exchange, including fault detection for various market manipulation patterns.",
+  "REPORTS": "Reports",
+  "REALTIME_REPORT": "Real Time Reporting",
+  "SUSPICIOUS": "Suspicious Activity Detection",
+  "INSIDER": "Detect insider trading, short-selling",
+  "DATA_SCRAPPING": "Data Scrapping",
+  "ENFORCE": "Enforce Bursa/SC Malaysia rules",
+  "REALTIME_MONITOR": "Real‑Time Monitoring",
+  "STREAM": "Stream live trade events",
+  "DATA_INTEGRATION": "Data Integration",
+  "CONSOLIDATE": "Consolidate trade data sources",
+  "COMPLIANCE": "Compliance Assurance",
+  "WASH_ALERTS": "Wash Trade Alerts",
+  "ADVANCED": "Advanced Analytics",
+  "IDENTIFY": "Identify patterns & anomalies",
+  "STAKEHOLDER": "Stakeholder Access"
+}

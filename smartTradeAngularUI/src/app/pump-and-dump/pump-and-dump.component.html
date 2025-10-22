@@ -1,0 +1,264 @@
+<div class="page-heading">
+  <section class="pd-card" aria-labelledby="pd-title">
+    <header class="pd-header">
+      <div class="pd-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path
+            d="M3 3h2v16h14v2H3V3zm18 2H9v12h12V5zm-6.5 2 2.5 3 2.5-3 1.5 1-4 5-4-5 1.5-1zM11 15h8v2h-8v-2z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+      <div>
+        <h1 id="pd-title">What is pump & dump trades?</h1>
+      </div>
+    </header>
+
+    <p class="pd-lede">
+      Pump-and-dump also called (Ramping) is a market-manipulation scheme
+      executed in two stages: a rapid
+      <span class="pill pill-pump">PUMP</span> followed by a sharp
+      <span class="pill pill-dump">DUMP</span>.
+    </p>
+
+    <!-- <div class="pd-steps">
+      <article class="pd-step pump">
+        <h3>PUMP</h3>
+        <p>
+          A group quietly accumulates a thinly traded stock, then
+          <strong>hypes</strong> it with aggressive or false claims. Coordinated
+          buying drives <strong>price</strong> and
+          <strong>volume</strong> sharply higher.
+        </p>
+      </article>
+
+      <article class="pd-step dump">
+        <h3>DUMP</h3>
+        <p>
+          Once outside traders chase the move, the group
+          <strong>dumps</strong> at the inflated price. With buying support
+          gone, the price <strong>collapses</strong>.
+        </p>
+      </article>
+    </div> -->
+  </section>
+</div>
+
+<!-- Top banner -->
+<div class="alert-banner" role="status" aria-live="polite">
+  Out of <span class="num num-primary">21,754</span> alerts detected over the
+  last <span class="num">3</span> days (<span class="date">21 Aug 2025</span
+  >–<span class="date">23 Aug 2025</span>), our algorithm identified
+  <span class="num num-accent">5668</span> pump-and-dump trade patterns, as
+  shown below.
+</div>
+
+<!-- Toolbar -->
+<div class="grid-toolbar">
+  <mat-form-field appearance="outline" class="toolbar-item">
+    <mat-label>Search</mat-label>
+    <input
+      matInput
+      placeholder="Type to filter (e.g. SIME, BUY, wash)"
+      [(ngModel)]="quickFilter"
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="toolbar-item page-size">
+    <mat-label>Page size</mat-label>
+    <mat-select
+      [(value)]="pageSize"
+      (selectionChange)="onPageSizeChange($event.value)"
+    >
+      <mat-option *ngFor="let s of pageSizeOptions" [value]="s">{{
+        s
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="toolbar-spacer"></div>
+  <div class="count-chip" *ngIf="totalCount !== null">
+    Total: {{ totalCount }}
+  </div>
+</div>
+
+<!-- Grid -->
+<!-- Replace your ag-grid-angular tag with this -->
+<div class="align-center grid-container">
+  <ag-grid-angular
+    [theme]="'legacy'"
+    [class]="gridThemeClass"
+    style="width: 90%; height: 60vh"
+    [rowData]="rowData"
+    alignment="center"
+    [columnDefs]="colDefs"
+    [defaultColDef]="defaultColDef"
+    [pagination]="true"
+    [paginationPageSize]="20"
+    [quickFilterText]="quickFilter"
+    [animateRows]="true"
+    (gridReady)="onGridReady($event)"
+  >
+  </ag-grid-angular>
+</div>
+
+<!-- Keep your rules button AFTER the grid -->
+<div class="hero-line-before"></div>
+<p class="hero-line">
+  Let our Rule- Engine help you calibrates true pump-and-dump trades using
+  cutting-edge tech & algorithm
+  <span class="chip-new chip-true">true positives</span> (manipulation) from
+  <span class="chip-new chip-false">false positives</span>
+</p>
+
+<div class="button-row">
+  <button mat-raised-button class="cta" (click)="OpenWizard()">
+    <mat-icon>settings_suggest</mat-icon>
+    Configure True Positive
+  </button>
+</div>
+
+<!-- Run/toolbar -->
+<div class="run-info__text" *ngIf="lastRunMessage">
+  {{ lastRunMessage }} · {{ lastRunCount }} incidents
+</div>
+
+<!-- Rich AG Grid -->
+<!-- Grid 2 (Pump & Dump incidents) -->
+<div class="align-center grid-container">
+  <ag-grid-angular
+    [theme]="'legacy'"
+    [class]="gridThemeClass"
+    style="width: 90%; height: calc(100vh - 320px); min-height: 360px"
+    alignment="center"
+    [rowData]="rowDataWashTrade"
+    [columnDefs]="columnDefsWashTrade"
+    [defaultColDef]="defaultColDefWashTrade"
+    (gridReady)="onGridReadyWashTrade($event)"
+    [getRowId]="getWashRowId"
+    [getRowClass]="getWashRowClass"
+    [isFullWidthRow]="isFullWidthRow"
+    [fullWidthCellRenderer]="fullWidthRenderer"
+    [getRowHeight]="getWashRowHeight"
+    (gridReady)="onGridReadyWashTrade($event)"
+    [isFullWidthRow]="isFullWidthRow"
+    [fullWidthCellRenderer]="fullWidthRenderer"
+    [getRowHeight]="getWashRowHeight"
+    [getRowClass]="getWashRowClass"
+  >
+  </ag-grid-angular>
+</div>
+<div class="hero-line-before"></div>
+<!-- Validate the results existing FINISH button -->
+<p class="hero-line">
+  Lets Validate the result against the real world using Generative AL
+  capabilities and Google Gemini LLM Model.
+</p>
+
+<!-- Validate button appears only after Finish -->
+<div class="button-row" *ngIf="showValidateBtn">
+  <button mat-raised-button class="cta" (click)="toggleValidateArea()">
+    <mat-icon>task_alt</mat-icon>
+    Validate
+  </button>
+</div>
+
+<!-- Textarea shows after clicking Validate -->
+<div class="validate-area" *ngIf="showValidateArea">
+  <mat-form-field appearance="outline" class="validate-input">
+    <mat-label>Enter validation instruction</mat-label>
+    <textarea
+      matInput
+      rows="3"
+      [(ngModel)]="validateQuery"
+      placeholder="Ask Google gemini-2.5-flash-lite"
+      aria-label="Validation instruction"
+    ></textarea>
+  </mat-form-field>
+
+  <div class="validate-actions">
+    <button mat-raised-button class="cta" (click)="onExecuteValidation()">
+      <mat-icon>play_arrow</mat-icon>
+      Execute
+    </button>
+  </div>
+
+  <!-- Loader (default Angular Material spinner) -->
+  <div class="loading" *ngIf="loading" aria-live="polite">
+    <mat-progress-spinner
+      mode="indeterminate"
+      diameter="48"
+    ></mat-progress-spinner>
+    <div class="loading-text">Validating…</div>
+  </div>
+
+  <div *ngIf="showSorry" class="sorry-banner" aria-live="polite">
+    I am sorry. Ask a question about trade surveillance, compliance, or other
+    trading-related query.
+  </div>
+
+  <!-- Result table -->
+  <div *ngIf="showResults">
+    <table mat-table [dataSource]="resultRows" class="mat-elevation-z2 w-100">
+      <ng-container matColumnDef="serial">
+        <th mat-header-cell *matHeaderCellDef>Serial No</th>
+        <td mat-cell *matCellDef="let row; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="link">
+        <th mat-header-cell *matHeaderCellDef>Link</th>
+        <td mat-cell *matCellDef="let row">
+          <a [href]="row.url" target="_blank" rel="noopener">{{ row.text }}</a>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>
+
+<footer class="web-footer">
+  <div class="web-footer__bottom-bar">
+    <!-- system status -->
+    <a
+      href="https://www.ust.com/"
+      target="_blank"
+      rel="noopener"
+      class="status-link"
+    >
+      <span class="status-indicator online"></span>
+      <span class="status-text">All systems operational</span>
+    </a>
+
+    <!-- bottom links & actions -->
+    <div class="web-footer__links">
+      <a
+        href="https://www.ust.com/en/insights/"
+        target="_blank"
+        rel="external noopener"
+        class="footer-link"
+      >
+        Terms of Use
+      </a>
+      <a
+        href="https://www.ust.com/en/legal-notice/privacy-policy"
+        target="_blank"
+        rel="external noopener"
+        class="footer-link"
+      >
+        Privacy Policy
+      </a>
+      <a
+        href="https://www.ust.com/en/what-we-do"
+        target="_blank"
+        rel="external noopener"
+        class="footer-link"
+      >
+        Cookie Policy
+      </a>
+      <button class="cookie-settings">Cookie settings</button>
+      <span class="footer-copyright">© 2025 UST</span>
+    </div>
+  </div>
+</footer>

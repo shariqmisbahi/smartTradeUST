@@ -1,0 +1,129 @@
+<div class="monitoring-page">
+  <!-- Header -->
+  <header class="rtm-header">
+    <div class="rtm-title">
+      <div class="eyebrow">Trade Surveillance</div>
+      <h1>Real-Time Monitoring</h1>
+      <p>
+        Server-side paging, dynamic columns, and fast filtering for large trade
+        datasets.
+      </p>
+    </div>
+
+    <div class="rtm-kpis">
+      <div class="kpi">
+        <div class="kpi-label">Total Rows</div>
+        <div class="kpi-value">{{ totalCount | number }}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Page Size</div>
+        <div class="kpi-value">{{ pageSize }}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Page</div>
+        <div class="kpi-value">{{ page }} / {{ totalPages }}</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Toolbar -->
+  <section class="rtm-toolbar">
+    <div class="toolbar-left">
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search (press Enter)…"
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="applySearch()"
+        />
+        <button
+          class="clear-button"
+          *ngIf="searchQuery"
+          (click)="clearSearch()"
+          title="Clear"
+        >
+          ✖
+        </button>
+      </div>
+
+      <label class="fault-filter">
+        <input
+          type="checkbox"
+          [(ngModel)]="showFaultOnly"
+          (change)="toggleFaultOnly()"
+        />
+        <span>Fault only</span>
+      </label>
+    </div>
+
+    <div class="toolbar-right">
+      <label class="size-label">Rows per page</label>
+      <select
+        class="size-select"
+        [(ngModel)]="pageSize"
+        (change)="onPageSizeChange()"
+      >
+        <option *ngFor="let s of pageSizeOptions" [ngValue]="s">{{ s }}</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- Grid -->
+  <section class="grid-wrap">
+    <div class="grid-card">
+      <ag-grid-angular
+        class="ag-theme-alpine rtm-grid"
+        [rowData]="rowData"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        (gridReady)="onGridReady($event)"
+      >
+      </ag-grid-angular>
+
+      <div class="loading" *ngIf="isLoading">Loading trades…</div>
+      <div class="error" *ngIf="loadError">{{ loadError }}</div>
+    </div>
+  </section>
+
+  <!-- Pager -->
+  <nav class="pager" *ngIf="totalCount > 0">
+    <button class="pager-btn" (click)="firstPage()" [disabled]="page === 1">
+      « First
+    </button>
+    <button class="pager-btn" (click)="prevPage()" [disabled]="page === 1">
+      ‹ Prev
+    </button>
+
+    <span class="pager-info">
+      Page
+      <input
+        class="pager-input"
+        type="number"
+        [value]="page"
+        (change)="onJumpToPage($any($event.target).value)"
+      />
+      of {{ totalPages }}
+    </span>
+
+    <button
+      class="pager-btn"
+      (click)="nextPage()"
+      [disabled]="page === totalPages"
+    >
+      Next ›
+    </button>
+    <button
+      class="pager-btn"
+      (click)="lastPage()"
+      [disabled]="page === totalPages"
+    >
+      Last »
+    </button>
+
+    <span class="pager-range">
+      {{ pageStart }}–{{ pageEnd }} of {{ totalCount | number }}
+    </span>
+  </nav>
+</div>

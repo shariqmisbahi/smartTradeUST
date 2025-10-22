@@ -1,0 +1,248 @@
+<div class="page-heading">
+  <section class="pd-card" aria-labelledby="pd-title">
+    <header class="pd-header">
+      <div class="pd-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path
+            d="M3 3h2v16h14v2H3V3zm18 2H9v12h12V5zm-6.5 2 2.5 3 2.5-3 1.5 1-4 5-4-5 1.5-1zM11 15h8v2h-8v-2z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+      <div>
+        <h1 id="pd-title">Configure Pump & Dump in 3 easy Steps</h1>
+      </div>
+    </header>
+
+    <p class="alert-banner2">
+      Filtering pump-and-dump trades from the total alerts received
+    </p>
+
+    <!-- <div class="pd-steps">
+      <article class="pd-step pump">
+        <h3>PUMP</h3>
+        <p>
+          A group quietly accumulates a thinly traded stock, then
+          <strong>hypes</strong> it with aggressive or false claims. Coordinated
+          buying drives <strong>price</strong> and
+          <strong>volume</strong> sharply higher.
+        </p>
+      </article>
+
+      <article class="pd-step dump">
+        <h3>DUMP</h3>
+        <p>
+          Once outside traders chase the move, the group
+          <strong>dumps</strong> at the inflated price. With buying support
+          gone, the price <strong>collapses</strong>.
+        </p>
+      </article>
+    </div> -->
+  </section>
+</div>
+
+<!-- Top banner -->
+<div class="alert-banner2" role="status" aria-live="polite">
+  Out of 21,754 alerts detected over the last 3days (21 Aug 2025–23 Aug 2025),
+  our algorithm identified 5668 pump-and-dump trade patterns, as shown below.
+</div>
+
+<div class="align-center grid-container">
+  <ag-grid-angular
+    [theme]="'legacy'"
+    [class]="gridThemeClass"
+    style="width: 100%; height: 60vh; overflow-x: auto"
+    [rowData]="rowDataGrid1"
+    [columnDefs]="colDefsGrid1"
+    [defaultColDef]="defaultColDefGrid1"
+    [pagination]="true"
+    [paginationPageSize]="20"
+    [quickFilterText]="quickFilter"
+    [animateRows]="true"
+    [getRowId]="getRowId1"
+    (gridReady)="onGridReady($event)"
+  >
+  </ag-grid-angular>
+</div>
+<!-- Keep your rules button AFTER the grid -->
+<div class="hero-line-before"></div>
+<p class="alert-banner2">
+  Step 1: Let our Rule Engine help you calibrates true pump-and-dump trades
+  using cutting-edge tech & algorithm true positives (manipulation) from false
+  positives
+</p>
+
+<!-- ===== Wizard Output (True Positives only) ===== -->
+<div class="align-center grid-container" *ngIf="rowDataGrid2?.length">
+  <ag-grid-angular
+    [theme]="'legacy'"
+    class="ag-theme-alpine explain-grid"
+    style="width: 100%; height: 56vh; overflow: auto"
+    [rowData]="rowDataGrid2"
+    [columnDefs]="colDefsGrid2"
+    [defaultColDef]="defaultColDefGrid2"
+    [pagination]="true"
+    [paginationPageSize]="20"
+    [animateRows]="true"
+    [masterDetail]="true"
+    [detailRowAutoHeight]="true"
+    [detailCellRendererParams]="detailCellRendererParams"
+  >
+  </ag-grid-angular>
+</div>
+<!-- ===== Calibrated Alerts (from Wizard) ===== -->
+
+<!-- <div class="button-row">
+  <button mat-raised-button class="cta" (click)="OpenWizard()">
+    <mat-icon>settings_suggest</mat-icon>
+    Configure True Positive
+  </button>
+</div> -->
+
+<div class="button-row" *ngIf="rowDataGrid1?.length">
+  <!-- Your existing button -->
+  <button mat-raised-button class="cta" (click)="OpenWizard()">
+    <mat-icon>settings_suggest</mat-icon>
+    Calibrate Manually
+  </button>
+  <!-- Loader GIF -->
+  <!-- <img *ngIf="loading" [src]="loaderUrl" class="loader" alt="Loading..." /> -->
+</div>
+<div class="align-center grid-container" *ngIf="calibRows?.length">
+  <ag-grid-angular
+    #calibGrid
+    theme="legacy"
+    class="ag-theme-alpine"
+    style="width: 100%; height: 56vh; overflow: auto"
+    [rowData]="calibRows"
+    [columnDefs]="calibColDefs"
+    [defaultColDef]="calibDefaultColDef"
+    [pagination]="true"
+    [paginationPageSize]="20"
+    [animateRows]="true"
+  >
+  </ag-grid-angular>
+</div>
+<div *ngIf="calibRows?.length">
+  <div class="hero-line-before"></div>
+  <p class="alert-banner2">
+    Step 2: (AI)–driven final inference to match practical market scenarios.
+  </p>
+</div>
+
+<div class="button-row" *ngIf="calibRows?.length">
+  <!-- <div class="button-row" *ngIf="calibRows?.length"> -->
+  <button
+    mat-raised-button
+    color="primary"
+    class="cta ml-btn"
+    (click)="runCalibration()"
+    [disabled]="loading()"
+  >
+    <mat-icon>bolt</mat-icon>
+    Inference using (AI)
+  </button>
+</div>
+<!-- Move overlay OUTSIDE button-row -->
+<div class="overlay" *ngIf="loading()">
+  <div class="overlay-card">
+    <img
+      [src]="processingGif"
+      width="260"
+      height="195"
+      alt="ML processing"
+      (error)="onGifError($event)"
+    />
+    <div class="label">Evaluating with AI Analysis…</div>
+  </div>
+</div>
+
+<div class="align-center grid-container" *ngIf="rowDataML?.length">
+  <ag-grid-angular
+    [theme]="'legacy'"
+    class="ag-theme-alpine"
+    style="width: 100%; height: 56vh; overflow: auto"
+    [rowData]="rowDataML"
+    [columnDefs]="colDefsML"
+    [defaultColDef]="defaultColDefML"
+    [pagination]="true"
+    [paginationPageSize]="20"
+    [animateRows]="true"
+    [getRowStyle]="getRowStyle"
+    (gridReady)="onMLGridReady($event)"
+  >
+  </ag-grid-angular>
+</div>
+<!-- Actions bar: right-aligned button + small GIF while verifying -->
+<div *ngIf="rowDataML?.length">
+  <div class="hero-line-before"></div>
+  <p class="alert-banner2">
+    Step 3: Verification using Internal company database.
+  </p>
+</div>
+
+<div class="actions-wrap" *ngIf="rowDataML?.length">
+  <button
+    mat-raised-button
+    color="primary"
+    class="intel-btn"
+    (click)="verifyWithIntel()"
+    [disabled]="verifying"
+    aria-label="Verification using Internal Data"
+  >
+    <mat-icon class="mr-6">verified</mat-icon>
+    <span *ngIf="!verifying">Verification using Internal Data</span>
+    <span *ngIf="verifying">Verifying…</span>
+  </button>
+
+  <!-- Nice big GIF card appears only while verifying -->
+  <!-- <div
+    class="verifying-card"
+    *ngIf="verifying"
+    role="status"
+    aria-live="polite"
+  >
+    <img
+      class="verifying-gif"
+      [src]="processingGif"
+      alt="ML processing animation"
+      (error)="onGifError($event)"
+      decoding="async"
+    />
+    <div class="label">Evaluating with Machine Learning…</div>
+  </div> -->
+</div>
+
+<footer class="web-footer">
+  <div class="web-footer__bottom-bar">
+    <!-- bottom links & actions -->
+    <div class="web-footer__links">
+      <a
+        href="https://www.ust.com/en/insights/"
+        target="_blank"
+        rel="external noopener"
+        class="footer-link"
+      >
+        Terms of Use
+      </a>
+      <a
+        href="https://www.ust.com/en/legal-notice/privacy-policy"
+        target="_blank"
+        rel="external noopener"
+        class="footer-link"
+      >
+        Privacy Policy
+      </a>
+      <a
+        href="https://www.ust.com/en/what-we-do"
+        target="_blank"
+        rel="external noopener"
+        class="footer-link"
+      >
+        Cookie Policy
+      </a>
+      <button class="cookie-settings">Cookie settings</button>
+      <span class="footer-copyright">© 2025 UST</span>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,277 @@
+<main class="home-page">
+  <!-- Hero: matches Pump & Dump card tone -->
+  <section class="homepage-hero">
+    <div class="homepage-title">
+      <h1 class="header-title">Trade Surveillance</h1>
+      <p class="subtitle">
+        Empowering Smarter Compliance Through Intelligent AI.
+      </p>
+    </div>
+    <div class="homepage-logo">
+      <img src="assets/ustlogo.png" alt="Exchange Logo" />
+    </div>
+  </section>
+
+  <!-- GROUPS WRAPPER -->
+  <section class="groups">
+    <!-- 1) Fraudulent Behaviour / Fiduciary Breach -->
+    <div class="group">
+      <div class="group-title">
+        <p class="subHeading">Fraudulent Behaviour / Fiduciary Breach</p>
+      </div>
+      <div class="cards-grid">
+        <a class="card" routerLink="/real-time-monitoring">
+          <lucide-icon
+            name="search"
+            class="card-icon icon-teal"
+            aria-hidden="true"
+          ></lucide-icon>
+          <span class="cardbHeading">Front Running</span>
+          <small>(Firm / Research)</small>
+        </a>
+        <a class="card2" routerLink="/insider-trading">
+          <lucide-icon
+            name="user"
+            class="card-icon icon-teal"
+            aria-hidden="true"
+          ></lucide-icon>
+          <span class="cardbHeading">Insider Trading</span>
+          <small>MNPI misuse detection</small>
+        </a>
+      </div>
+    </div>
+
+    <!-- 2) Price / Volume Manipulation -->
+    <div class="group">
+      <div class="group-title">
+        <p class="subHeading">Price / Volume Manipulation</p>
+      </div>
+      <div class="cards-grid">
+        <a class="card2" routerLink="/pump-and-dump">
+          <lucide-icon
+            name="trending-up"
+            class="card-icon icon-teal"
+            aria-hidden="true"
+          ></lucide-icon>
+          <span class="cardbHeading">Ramping (Pump & Dump)</span>
+          <small>Rapid price & volume spikes</small>
+        </a>
+        <a class="card" routerLink="/spoofing">
+          <!-- Using your nav mapping (Spoofing -> database) -->
+          <lucide-icon
+            name="database"
+            class="card-icon icon-teal"
+            aria-hidden="true"
+          ></lucide-icon>
+          <span class="cardbHeading">Spoofing</span>
+          <small>Place/cancel to mislead</small>
+        </a>
+        <a class="card" routerLink="/layering">
+          <!-- Your nav mapping points Layering -> hammer -->
+          <lucide-icon
+            name="hammer"
+            class="card-icon icon-teal"
+            aria-hidden="true"
+          ></lucide-icon>
+          <span class="cardbHeading">Layering</span>
+          <small>Stacked orders to nudge price</small>
+        </a>
+        <a class="card2" routerLink="/wash-trade-alerts">
+          <!-- Your nav mapping: Wash/Cross -> alarm-clock -->
+          <lucide-icon
+            name="alarm-clock"
+            class="card-icon icon-teal"
+            aria-hidden="true"
+          ></lucide-icon>
+          <span class="cardbHeading">Wash / Cross Trades</span>
+          <small>Self-dealing & matched orders</small>
+        </a>
+        <a class="card" routerLink="/open-close">
+          <lucide-icon
+            name="bar-chart-3"
+            class="card-icon icon-teal"
+            aria-hidden="true"
+          ></lucide-icon>
+          <span class="cardbHeading">Marking Open/Close</span>
+          <small>Open/close price influence</small>
+        </a>
+        <a class="card" routerLink="/churning">
+          <lucide-icon
+            name="shield"
+            class="card-icon icon-teal"
+            aria-hidden="true"
+          ></lucide-icon>
+          <span class="cardbHeading">Churning</span>
+          <small>Excess trades, low holding</small>
+        </a>
+        <a class="card" routerLink="/peg-barrier">
+          <!-- Not in nav-links; use a clear Lucide match -->
+          <lucide-icon
+            name="target"
+            class="card-icon icon-teal"
+            aria-hidden="true"
+          ></lucide-icon>
+          <span class="cardbHeading">Pegging / Barrier Options</span>
+          <small>Strike/level defense patterns</small>
+        </a>
+      </div>
+    </div>
+
+    <!-- 3) Suitability / Best Interests -->
+    <div class="group">
+      <div class="group-title">
+        <p class="subHeading">Suitability / Best Interests</p>
+      </div>
+      <div class="cards-grid">
+        <a class="card" routerLink="/best-execution">
+          <lucide-icon
+            name="check-circle"
+            class="card-icon icon-teal"
+            aria-hidden="true"
+          ></lucide-icon>
+          <span class="cardbHeading">Best Execution</span>
+          <small>Venue/price/latency checks</small>
+        </a>
+        <a class="card" routerLink="/account-restrictions">
+          <lucide-icon
+            name="lock"
+            class="card-icon icon-teal"
+            aria-hidden="true"
+          ></lucide-icon>
+          <span class="cardbHeading">Account Restrictions</span>
+          <small>Restricted lists & controls</small>
+        </a>
+        <a class="card" routerLink="/prearranged-trades">
+          <lucide-icon
+            name="handshake"
+            class="card-icon icon-teal"
+            aria-hidden="true"
+          ></lucide-icon>
+          <span class="cardbHeading">Prearranged Trades</span>
+          <small>Collusive trade patterns</small>
+        </a>
+      </div>
+    </div>
+
+    <!-- 4) Limits Monitoring -->
+    <div class="group">
+      <div class="group-title">
+        <p class="subHeading">Limits Monitoring</p>
+      </div>
+      <div class="cards-grid">
+        <a class="card" routerLink="/position-limits">
+          <lucide-icon
+            name="package"
+            class="card-icon icon-teal"
+            aria-hidden="true"
+          ></lucide-icon>
+          <span class="cardbHeading">Position Limits</span>
+          <small>Concentration & netting</small>
+        </a>
+        <a class="card" routerLink="/price-volume-limits">
+          <lucide-icon
+            name="sliders-horizontal"
+            class="card-icon icon-teal"
+            aria-hidden="true"
+          ></lucide-icon>
+          <span class="cardbHeading">Price / Volume Limits</span>
+          <small>Range/threshold breaches</small>
+        </a>
+      </div>
+    </div>
+
+    <!-- 5) Order Handling -->
+    <div class="group">
+      <div class="group-title">
+        <p class="subHeading">Order Handling</p>
+      </div>
+      <div class="cards-grid">
+        <a class="card" routerLink="/short-selling">
+          <lucide-icon
+            name="trending-down"
+            class="card-icon icon-teal"
+            aria-hidden="true"
+          ></lucide-icon>
+          <span class="cardbHeading">Short Selling / FTD</span>
+          <small>Locate, borrow & fails</small>
+        </a>
+      </div>
+    </div>
+
+    <!-- 6) Market Making -->
+    <div class="group">
+      <div class="group-title">
+        <p class="subHeading">Market Making</p>
+      </div>
+      <div class="cards-grid">
+        <a class="card" routerLink="/participation-obligations">
+          <lucide-icon
+            name="settings"
+            class="card-icon icon-teal"
+            aria-hidden="true"
+          ></lucide-icon>
+          <span class="cardbHeading">Participation Obligations</span>
+          <small>Quotes, spreads, inventory</small>
+        </a>
+      </div>
+    </div>
+
+    <!-- 7) Trade Booking -->
+    <div class="group">
+      <div class="group-title">
+        <p class="subHeading">Trade Booking</p>
+      </div>
+      <div class="cards-grid">
+        <a class="card" routerLink="/trade-booking">
+          <lucide-icon
+            name="receipt"
+            class="card-icon icon-teal"
+            aria-hidden="true"
+          ></lucide-icon>
+          <span class="cardbHeading">Parking / Extended Settlement</span>
+          <small>Booking timing & intent</small>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (unchanged) -->
+  <footer class="web-footer footerDivision">
+    <div class="web-footer__bottom-bar">
+      <a
+        href="https://www.ust.com/"
+        target="_blank"
+        rel="noopener"
+        class="status-link"
+      >
+        <span class="status-indicator online"></span>
+        <span class="status-text">All systems operational</span>
+      </a>
+      <div class="web-footer__links">
+        <a
+          href="https://www.ust.com/en/insights/"
+          target="_blank"
+          rel="external noopener"
+          class="footer-link"
+          >Terms of Use</a
+        >
+        <a
+          href="https://www.ust.com/en/legal-notice/privacy-policy"
+          target="_blank"
+          rel="external noopener"
+          class="footer-link"
+          >Privacy Policy</a
+        >
+        <a
+          href="https://www.ust.com/en/what-we-do"
+          target="_blank"
+          rel="external noopener"
+          class="footer-link"
+          >Cookie Policy</a
+        >
+        <button class="cookie-settings">Cookie settings</button>
+        <span class="footer-copyright">© 2025 UST</span>
+      </div>
+    </div>
+  </footer>
+</main>

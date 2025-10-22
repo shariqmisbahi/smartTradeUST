@@ -1,0 +1,1137 @@
+{
+  "total_faults": 396577,
+  "fault_statistics": {
+    "Wash Trade": 19806,
+    "Front Running": 9652,
+    "Ramping": 97140,
+    "Spoofing": 48315,
+    "Churning": 192360,
+    "Marking Open/Close": 29304
+  },
+  "recent_faults": [
+    {
+      "timestamp": "2025-07-25T01:19:49.536005",
+      "trade_id": "T01512616",
+      "ticker": "PBBANK",
+      "price": 0.1047913991736619,
+      "volume": 3207,
+      "trader_id": "TRADER_008",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_005 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:49.537135",
+      "trade_id": "T01512617",
+      "ticker": "PBBANK",
+      "price": 0.10431364953654128,
+      "volume": 1194,
+      "trader_id": "TRADER_008",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_005 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:49.538266",
+      "trade_id": "T01512618",
+      "ticker": "PBBANK",
+      "price": 0.10499405971970807,
+      "volume": 1496,
+      "trader_id": "TRADER_008",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_005 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:49.539393",
+      "trade_id": "T01512619",
+      "ticker": "PBBANK",
+      "price": 0.10411071351883922,
+      "volume": 4662,
+      "trader_id": "TRADER_008",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_005 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:49.540543",
+      "trade_id": "T01512620",
+      "ticker": "PBBANK",
+      "price": 0.10505762635873933,
+      "volume": 2125,
+      "trader_id": "TRADER_008",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_005 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:49.541703",
+      "trade_id": "T01512621",
+      "ticker": "PBBANK",
+      "price": 0.10501413297067853,
+      "volume": 4367,
+      "trader_id": "TRADER_008",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_005 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:49.542856",
+      "trade_id": "T01512622",
+      "ticker": "PBBANK",
+      "price": 0.10431777375098224,
+      "volume": 4766,
+      "trader_id": "TRADER_008",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_005 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:49.543977",
+      "trade_id": "T01512623",
+      "ticker": "PBBANK",
+      "price": 0.10474742216629832,
+      "volume": 1289,
+      "trader_id": "TRADER_008",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_005 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:49.545113",
+      "trade_id": "T01512624",
+      "ticker": "PBBANK",
+      "price": 0.10577991321909176,
+      "volume": 4921,
+      "trader_id": "TRADER_008",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_005 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:49.546259",
+      "trade_id": "T01512625",
+      "ticker": "PBBANK",
+      "price": 0.103919823552713,
+      "volume": 1108,
+      "trader_id": "TRADER_008",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_005 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:49.547379",
+      "trade_id": "T01512626",
+      "ticker": "PBBANK",
+      "price": 0.10467758750144546,
+      "volume": 1761,
+      "trader_id": "TRADER_008",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_005 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:49.548514",
+      "trade_id": "T01512627",
+      "ticker": "PBBANK",
+      "price": 0.10564776436159647,
+      "volume": 3167,
+      "trader_id": "TRADER_008",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_005 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:49.549635",
+      "trade_id": "T01512628",
+      "ticker": "PBBANK",
+      "price": 0.10381875836777986,
+      "volume": 1400,
+      "trader_id": "TRADER_008",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_005 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:49.550754",
+      "trade_id": "T01512629",
+      "ticker": "PBBANK",
+      "price": 0.10452501268629626,
+      "volume": 3005,
+      "trader_id": "TRADER_008",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_005 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:49.551873",
+      "trade_id": "T01512630",
+      "ticker": "PBBANK",
+      "price": 0.10441882827211722,
+      "volume": 2770,
+      "trader_id": "TRADER_008",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_005 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:49.552991",
+      "trade_id": "T01512631",
+      "ticker": "PBBANK",
+      "price": 0.10415553725329904,
+      "volume": 4616,
+      "trader_id": "TRADER_008",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_005 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:49.554112",
+      "trade_id": "T01512632",
+      "ticker": "PBBANK",
+      "price": 0.10568842720734105,
+      "volume": 3005,
+      "trader_id": "TRADER_008",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_005 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.429979",
+      "trade_id": "T01512648",
+      "ticker": "IHH",
+      "price": 1.1457693275867087,
+      "volume": 3987,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.431096",
+      "trade_id": "T01512649",
+      "ticker": "IHH",
+      "price": 1.1573452454042203,
+      "volume": 2806,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.432208",
+      "trade_id": "T01512650",
+      "ticker": "IHH",
+      "price": 1.1427429005669572,
+      "volume": 2906,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.433319",
+      "trade_id": "T01512651",
+      "ticker": "IHH",
+      "price": 1.149858193406149,
+      "volume": 2827,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.434429",
+      "trade_id": "T01512652",
+      "ticker": "IHH",
+      "price": 1.1508770166933577,
+      "volume": 1434,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.435541",
+      "trade_id": "T01512653",
+      "ticker": "IHH",
+      "price": 1.1567255532821703,
+      "volume": 1587,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.436653",
+      "trade_id": "T01512654",
+      "ticker": "IHH",
+      "price": 1.1550793905802497,
+      "volume": 2177,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.437762",
+      "trade_id": "T01512655",
+      "ticker": "IHH",
+      "price": 1.1513884081091412,
+      "volume": 3684,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.438886",
+      "trade_id": "T01512656",
+      "ticker": "IHH",
+      "price": 1.1539793099516087,
+      "volume": 1744,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.440007",
+      "trade_id": "T01512657",
+      "ticker": "IHH",
+      "price": 1.1466179150113438,
+      "volume": 2039,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.441117",
+      "trade_id": "T01512658",
+      "ticker": "IHH",
+      "price": 1.1621813250502149,
+      "volume": 1965,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.442227",
+      "trade_id": "T01512659",
+      "ticker": "IHH",
+      "price": 1.1561654561187815,
+      "volume": 1906,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.443339",
+      "trade_id": "T01512660",
+      "ticker": "IHH",
+      "price": 1.1582603767581054,
+      "volume": 3981,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.444448",
+      "trade_id": "T01512661",
+      "ticker": "IHH",
+      "price": 1.149196264561066,
+      "volume": 4323,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.445566",
+      "trade_id": "T01512662",
+      "ticker": "IHH",
+      "price": 1.1468193793647359,
+      "volume": 1825,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.446688",
+      "trade_id": "T01512663",
+      "ticker": "IHH",
+      "price": 1.151580472513621,
+      "volume": 1082,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.447812",
+      "trade_id": "T01512664",
+      "ticker": "IHH",
+      "price": 1.146374955750886,
+      "volume": 4216,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.448929",
+      "trade_id": "T01512665",
+      "ticker": "IHH",
+      "price": 1.1596519668654939,
+      "volume": 3303,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.450072",
+      "trade_id": "T01512666",
+      "ticker": "IHH",
+      "price": 1.1406306392198378,
+      "volume": 4740,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.451182",
+      "trade_id": "T01512667",
+      "ticker": "IHH",
+      "price": 1.1583816125038024,
+      "volume": 2914,
+      "trader_id": "TRADER_002",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_001 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.657031",
+      "trade_id": "T01512671",
+      "ticker": "PBBANK",
+      "price": 0.10440236743867913,
+      "volume": 1334,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.658151",
+      "trade_id": "T01512672",
+      "ticker": "PBBANK",
+      "price": 0.10278988506570028,
+      "volume": 2462,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.659271",
+      "trade_id": "T01512673",
+      "ticker": "PBBANK",
+      "price": 0.10469299137799133,
+      "volume": 2829,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.660390",
+      "trade_id": "T01512674",
+      "ticker": "PBBANK",
+      "price": 0.10391536678486937,
+      "volume": 3825,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.661509",
+      "trade_id": "T01512675",
+      "ticker": "PBBANK",
+      "price": 0.1037609945488796,
+      "volume": 3751,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.662636",
+      "trade_id": "T01512676",
+      "ticker": "PBBANK",
+      "price": 0.10326428048185995,
+      "volume": 2232,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.663749",
+      "trade_id": "T01512677",
+      "ticker": "PBBANK",
+      "price": 0.10461115603065287,
+      "volume": 1481,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.664861",
+      "trade_id": "T01512678",
+      "ticker": "PBBANK",
+      "price": 0.10463212736083938,
+      "volume": 4846,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.665971",
+      "trade_id": "T01512679",
+      "ticker": "PBBANK",
+      "price": 0.10455064093966385,
+      "volume": 2887,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.667091",
+      "trade_id": "T01512680",
+      "ticker": "PBBANK",
+      "price": 0.10402187163251861,
+      "volume": 4227,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.668211",
+      "trade_id": "T01512681",
+      "ticker": "PBBANK",
+      "price": 0.10403041639899989,
+      "volume": 1571,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.669325",
+      "trade_id": "T01512682",
+      "ticker": "PBBANK",
+      "price": 0.10455760031406718,
+      "volume": 2335,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.670436",
+      "trade_id": "T01512683",
+      "ticker": "PBBANK",
+      "price": 0.10456448537003346,
+      "volume": 3458,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.671564",
+      "trade_id": "T01512684",
+      "ticker": "PBBANK",
+      "price": 0.10480595900512532,
+      "volume": 2874,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.672677",
+      "trade_id": "T01512685",
+      "ticker": "PBBANK",
+      "price": 0.10435139092809663,
+      "volume": 4496,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.673790",
+      "trade_id": "T01512686",
+      "ticker": "PBBANK",
+      "price": 0.10420331966435159,
+      "volume": 4887,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.674899",
+      "trade_id": "T01512687",
+      "ticker": "PBBANK",
+      "price": 0.10476425607075279,
+      "volume": 1486,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.676011",
+      "trade_id": "T01512688",
+      "ticker": "PBBANK",
+      "price": 0.10298905891368543,
+      "volume": 2338,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.677125",
+      "trade_id": "T01512689",
+      "ticker": "PBBANK",
+      "price": 0.10432543419970686,
+      "volume": 2463,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:50.678237",
+      "trade_id": "T01512690",
+      "ticker": "PBBANK",
+      "price": 0.10352629174447384,
+      "volume": 2777,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:19:57.512074",
+      "trade_id": "T01512807",
+      "ticker": "SUPERMX",
+      "price": 0.8356578245022176,
+      "volume": 42510,
+      "trader_id": "TRADER_020",
+      "fault_type": "Wash Trade",
+      "fault_reason": "Same trader buying and selling identical volumes",
+      "related_trades": [
+        "T01512808"
+      ]
+    },
+    {
+      "timestamp": "2025-07-25T01:19:57.512084",
+      "trade_id": "T01512808",
+      "ticker": "SUPERMX",
+      "price": 0.8356578245022176,
+      "volume": 42510,
+      "trader_id": "TRADER_020",
+      "fault_type": "Wash Trade",
+      "fault_reason": "Same trader buying and selling identical volumes",
+      "related_trades": [
+        "T01512807"
+      ]
+    },
+    {
+      "timestamp": "2025-07-25T01:19:57.859948",
+      "trade_id": "T01512813",
+      "ticker": "SCIENTX",
+      "price": 7.020348546869487,
+      "volume": 47245,
+      "trader_id": "TRADER_003",
+      "fault_type": "Wash Trade",
+      "fault_reason": "Same trader buying and selling identical volumes",
+      "related_trades": [
+        "T01512814"
+      ]
+    },
+    {
+      "timestamp": "2025-07-25T01:19:57.859956",
+      "trade_id": "T01512814",
+      "ticker": "SCIENTX",
+      "price": 7.020348546869487,
+      "volume": 47245,
+      "trader_id": "TRADER_003",
+      "fault_type": "Wash Trade",
+      "fault_reason": "Same trader buying and selling identical volumes",
+      "related_trades": [
+        "T01512813"
+      ]
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.894239",
+      "trade_id": "T01512868",
+      "ticker": "DIALOG",
+      "price": 5.829443341305845,
+      "volume": 2187,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.895360",
+      "trade_id": "T01512869",
+      "ticker": "DIALOG",
+      "price": 5.874729430024025,
+      "volume": 1017,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.896478",
+      "trade_id": "T01512870",
+      "ticker": "DIALOG",
+      "price": 5.839213517586756,
+      "volume": 4005,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.897593",
+      "trade_id": "T01512871",
+      "ticker": "DIALOG",
+      "price": 5.838362204762864,
+      "volume": 2454,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.898707",
+      "trade_id": "T01512872",
+      "ticker": "DIALOG",
+      "price": 5.84835722418531,
+      "volume": 1530,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.899823",
+      "trade_id": "T01512873",
+      "ticker": "DIALOG",
+      "price": 5.873909928092852,
+      "volume": 4114,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.900937",
+      "trade_id": "T01512874",
+      "ticker": "DIALOG",
+      "price": 5.781614824911578,
+      "volume": 4144,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.902051",
+      "trade_id": "T01512875",
+      "ticker": "DIALOG",
+      "price": 5.809557164236357,
+      "volume": 2628,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.903164",
+      "trade_id": "T01512876",
+      "ticker": "DIALOG",
+      "price": 5.861926811801119,
+      "volume": 1072,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.904279",
+      "trade_id": "T01512877",
+      "ticker": "DIALOG",
+      "price": 5.781024932036567,
+      "volume": 2880,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.905393",
+      "trade_id": "T01512878",
+      "ticker": "DIALOG",
+      "price": 5.892872604444939,
+      "volume": 1577,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.906507",
+      "trade_id": "T01512879",
+      "ticker": "DIALOG",
+      "price": 5.8681522140867095,
+      "volume": 2843,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.907619",
+      "trade_id": "T01512880",
+      "ticker": "DIALOG",
+      "price": 5.788714427270844,
+      "volume": 2091,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.908737",
+      "trade_id": "T01512881",
+      "ticker": "DIALOG",
+      "price": 5.812190491208585,
+      "volume": 1466,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.909851",
+      "trade_id": "T01512882",
+      "ticker": "DIALOG",
+      "price": 5.809042327651641,
+      "volume": 1678,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.910964",
+      "trade_id": "T01512883",
+      "ticker": "DIALOG",
+      "price": 5.848199371233981,
+      "volume": 2268,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.912081",
+      "trade_id": "T01512884",
+      "ticker": "DIALOG",
+      "price": 5.872243695824165,
+      "volume": 2485,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.913195",
+      "trade_id": "T01512885",
+      "ticker": "DIALOG",
+      "price": 5.827132049417077,
+      "volume": 4842,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.914308",
+      "trade_id": "T01512886",
+      "ticker": "DIALOG",
+      "price": 5.873756572499775,
+      "volume": 1416,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:00.915422",
+      "trade_id": "T01512887",
+      "ticker": "DIALOG",
+      "price": 5.823983976782014,
+      "volume": 4765,
+      "trader_id": "TRADER_003",
+      "fault_type": "Churning",
+      "fault_reason": "Excessive trading in client CLIENT_004 account to generate commissions",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:01.863080",
+      "trade_id": "T01512902",
+      "ticker": "MISC",
+      "price": 0.015883477193279094,
+      "volume": 9715,
+      "trader_id": "TRADER_003",
+      "fault_type": "Front Running",
+      "fault_reason": "Broker placed order before large client order",
+      "related_trades": [
+        "T01512903"
+      ]
+    },
+    {
+      "timestamp": "2025-07-25T01:20:02.810185",
+      "trade_id": "T01512922",
+      "ticker": "PCHEM",
+      "price": 0.037097990972748456,
+      "volume": 17179,
+      "trader_id": "TRADER_006",
+      "fault_type": "Wash Trade",
+      "fault_reason": "Same trader buying and selling identical volumes",
+      "related_trades": [
+        "T01512923"
+      ]
+    },
+    {
+      "timestamp": "2025-07-25T01:20:02.810197",
+      "trade_id": "T01512923",
+      "ticker": "PCHEM",
+      "price": 0.037097990972748456,
+      "volume": 17179,
+      "trader_id": "TRADER_006",
+      "fault_type": "Wash Trade",
+      "fault_reason": "Same trader buying and selling identical volumes",
+      "related_trades": [
+        "T01512922"
+      ]
+    },
+    {
+      "timestamp": "2025-07-25T01:20:03.053381",
+      "trade_id": "T01512927",
+      "ticker": "PCHEM",
+      "price": 0.037839950792203425,
+      "volume": 31339,
+      "trader_id": "TRADER_015",
+      "fault_type": "Marking Open/Close",
+      "fault_reason": "Large trades executed near market close to manipulate closing price",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:03.053393",
+      "trade_id": "T01512928",
+      "ticker": "PCHEM",
+      "price": 0.037839950792203425,
+      "volume": 45675,
+      "trader_id": "TRADER_015",
+      "fault_type": "Marking Open/Close",
+      "fault_reason": "Large trades executed near market close to manipulate closing price",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:03.053399",
+      "trade_id": "T01512929",
+      "ticker": "PCHEM",
+      "price": 0.037839950792203425,
+      "volume": 34952,
+      "trader_id": "TRADER_015",
+      "fault_type": "Marking Open/Close",
+      "fault_reason": "Large trades executed near market close to manipulate closing price",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:03.966392",
+      "trade_id": "T01512943",
+      "ticker": "SIMEPLT",
+      "price": 0.01890067405254769,
+      "volume": 23854,
+      "trader_id": "TRADER_015",
+      "fault_type": "Spoofing",
+      "fault_reason": "Large orders placed with intent to cancel - creating false market depth",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:03.966404",
+      "trade_id": "T01512944",
+      "ticker": "SIMEPLT",
+      "price": 0.018881582462595622,
+      "volume": 25396,
+      "trader_id": "TRADER_015",
+      "fault_type": "Spoofing",
+      "fault_reason": "Large orders placed with intent to cancel - creating false market depth",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:03.966410",
+      "trade_id": "T01512945",
+      "ticker": "SIMEPLT",
+      "price": 0.018862490872643554,
+      "volume": 36802,
+      "trader_id": "TRADER_015",
+      "fault_type": "Spoofing",
+      "fault_reason": "Large orders placed with intent to cancel - creating false market depth",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:03.966415",
+      "trade_id": "T01512946",
+      "ticker": "SIMEPLT",
+      "price": 0.018843399282691485,
+      "volume": 36730,
+      "trader_id": "TRADER_015",
+      "fault_type": "Spoofing",
+      "fault_reason": "Large orders placed with intent to cancel - creating false market depth",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:03.966419",
+      "trade_id": "T01512947",
+      "ticker": "SIMEPLT",
+      "price": 0.018824307692739416,
+      "volume": 23672,
+      "trader_id": "TRADER_015",
+      "fault_type": "Spoofing",
+      "fault_reason": "Large orders placed with intent to cancel - creating false market depth",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:04.057895",
+      "trade_id": "T01512948",
+      "ticker": "DUFU",
+      "price": 1.600822999829954,
+      "volume": 38895,
+      "trader_id": "TRADER_014",
+      "fault_type": "Wash Trade",
+      "fault_reason": "Same trader buying and selling identical volumes",
+      "related_trades": [
+        "T01512949"
+      ]
+    },
+    {
+      "timestamp": "2025-07-25T01:20:04.057903",
+      "trade_id": "T01512949",
+      "ticker": "DUFU",
+      "price": 1.600822999829954,
+      "volume": 38895,
+      "trader_id": "TRADER_014",
+      "fault_type": "Wash Trade",
+      "fault_reason": "Same trader buying and selling identical volumes",
+      "related_trades": [
+        "T01512948"
+      ]
+    },
+    {
+      "timestamp": "2025-07-25T01:20:05.798954",
+      "trade_id": "T01512982",
+      "ticker": "KOSSAN",
+      "price": 2.540026496667587,
+      "volume": 24897,
+      "trader_id": "TRADER_019",
+      "fault_type": "Wash Trade",
+      "fault_reason": "Same trader buying and selling identical volumes",
+      "related_trades": [
+        "T01512983"
+      ]
+    },
+    {
+      "timestamp": "2025-07-25T01:20:05.798963",
+      "trade_id": "T01512983",
+      "ticker": "KOSSAN",
+      "price": 2.540026496667587,
+      "volume": 24897,
+      "trader_id": "TRADER_019",
+      "fault_type": "Wash Trade",
+      "fault_reason": "Same trader buying and selling identical volumes",
+      "related_trades": [
+        "T01512982"
+      ]
+    },
+    {
+      "timestamp": "2025-07-25T01:20:06.419835",
+      "trade_id": "T01512992",
+      "ticker": "IOICORP",
+      "price": 0.062481357533189404,
+      "volume": 55515,
+      "trader_id": "TRADER_002",
+      "fault_type": "Marking Open/Close",
+      "fault_reason": "Large trades executed near market close to manipulate closing price",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:06.419846",
+      "trade_id": "T01512993",
+      "ticker": "IOICORP",
+      "price": 0.062481357533189404,
+      "volume": 42871,
+      "trader_id": "TRADER_002",
+      "fault_type": "Marking Open/Close",
+      "fault_reason": "Large trades executed near market close to manipulate closing price",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:06.419851",
+      "trade_id": "T01512994",
+      "ticker": "IOICORP",
+      "price": 0.062481357533189404,
+      "volume": 46038,
+      "trader_id": "TRADER_002",
+      "fault_type": "Marking Open/Close",
+      "fault_reason": "Large trades executed near market close to manipulate closing price",
+      "related_trades": null
+    },
+    {
+      "timestamp": "2025-07-25T01:20:07.014305",
+      "trade_id": "T01513005",
+      "ticker": "DUFU",
+      "price": 1.6299918825589361,
+      "volume": 5662,
+      "trader_id": "TRADER_005",
+      "fault_type": "Front Running",
+      "fault_reason": "Broker placed order before large client order",
+      "related_trades": [
+        "T01513006"
+      ]
+    }
+  ]
+}

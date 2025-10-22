@@ -1,0 +1,47 @@
+.app-shell {
+  display: flex;
+  min-height: 100dvh;
+  background: #f8fafc;
+}
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.topbar h1 {
+  font-size: 18px;
+  margin: 0;
+}
+.crumbs {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #475569;
+  font-size: 12px;
+}
+.dot {
+  width: 6px;
+  height: 6px;
+  background: #0891b2;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.page {
+  padding: 18px;
+}
+
+/* background: #94a3b8; */

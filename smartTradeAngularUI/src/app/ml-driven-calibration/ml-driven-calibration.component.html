@@ -1,0 +1,56 @@
+<!-- <div>
+  <div class="hero-line-before"></div>
+  <p class="alert-banner2">
+    Step 2: Machine Learning (AI)–driven final inference to match practical
+    market scenarios.
+  </p>
+</div> -->
+
+<div class="button-row">
+  <!-- <div class="button-row" *ngIf="calibRows?.length"> -->
+  <!-- <button
+    mat-raised-button
+    color="primary"
+    class="cta ml-btn"
+    (click)="runCalibration()"
+    [disabled]="loading()"
+    *ngIf="showAction"
+  >
+    <mat-icon>bolt</mat-icon>
+    Inference using (AI)
+  </button> -->
+  <button class="btn primary" (click)="runCalibration()">
+    <mat-icon>bolt</mat-icon>
+    Inference using (AI)
+  </button>
+</div>
+<!-- Move overlay OUTSIDE button-row -->
+<div class="overlay" *ngIf="loading()">
+  <div class="overlay-card">
+    <img
+      [src]="processingGif"
+      width="260"
+      height="195"
+      alt="ML processing"
+      (error)="onGifError($event)"
+    />
+    <div class="label">Evaluating with AI Analysis…</div>
+  </div>
+</div>
+
+<div class="align-center grid-container" *ngIf="rowDataML?.length">
+  <ag-grid-angular
+    [theme]="'legacy'"
+    class="ag-theme-alpine"
+    style="width: 100%; height: 56vh; overflow: auto"
+    [rowData]="rowDataML"
+    [columnDefs]="colDefsML"
+    [defaultColDef]="defaultColDefML"
+    [pagination]="true"
+    [paginationPageSize]="20"
+    [animateRows]="true"
+    [getRowStyle]="getRowStyle"
+    (gridReady)="onMLGridReady($event)"
+  >
+  </ag-grid-angular>
+</div>

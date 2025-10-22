@@ -1,0 +1,124 @@
+<!-- src/app/pump-and-dumpV2/explain-dialog-ml/explain-dialog-ml.component.html -->
+<div class="explain-container explain-report">
+  <header class="explain-header">
+    <div class="hdr-left">
+      <div class="eyebrow">ML Analysis Report</div>
+      <h2 class="title">
+        {{ titleMain() }}
+        <ng-container *ngIf="titleType()">
+          <span class="muted">({{ titleType() }})</span>
+        </ng-container>
+      </h2>
+      <div class="sub">
+        <span class="chip">Alert: {{ parent?.alert_id || "—" }}</span>
+        <span class="chip">Brokerage: {{ brokerage() }}</span>
+        <span class="chip strong">Rubric: {{ rubricScore() }}</span>
+        <span
+          class="chip"
+          [class.highRisk]="(riskBand() || '').toLowerCase() === 'high'"
+          [class.mediumRisk]="(riskBand() || '').toLowerCase() === 'medium'"
+          [class.lowRisk]="(riskBand() || '').toLowerCase() === 'low'"
+        >
+          Risk: {{ riskBand() }}
+        </span>
+        <span
+          class="chip"
+          [class.good]="
+            (systemDecision() || '').toLowerCase() === 'true positive'
+          "
+          [class.bad]="
+            (systemDecision() || '').toLowerCase() === 'true negative'
+          "
+        >
+          System Decision: {{ systemDecision() }}
+        </span>
+      </div>
+    </div>
+
+    <button
+      mat-icon-button
+      aria-label="Close"
+      (click)="close()"
+      class="close-btn"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </header>
+
+  <!-- Key scores summary (top) -->
+  <section class="summary">
+    <h3>Key Scores</h3>
+    <div class="summary-grid">
+      <div
+        class="sbox"
+        *ngFor="let s of scoreFields; trackBy: trackByScore"
+        [matTooltip]="getExp(s.key)?.meaning || ''"
+        matTooltipPosition="above"
+      >
+        <div class="slabel">{{ s.label }}</div>
+        <div class="svalue">{{ getVal(s.key) }}</div>
+        <div class="sthreshold" *ngIf="getThr(s.key) !== '—'">
+          threshold: {{ getThr(s.key) }}
+        </div>
+        <div
+          class="sstatus"
+          [class.bad]="getStatus(s.key) === 'FAIL'"
+          [class.good]="getStatus(s.key) === 'PASS'"
+        >
+          {{ getStatus(s.key) }}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- Narrative explanations per check -->
+  <section class="narrative" *ngIf="exps?.length; else empty">
+    <h3>What the model checked</h3>
+
+    <article
+      class="explain-block"
+      *ngFor="let e of exps; trackBy: trackByCriterion"
+      [class.fail]="e?.result === false"
+    >
+      <h4 class="crit">{{ up(e?.criterion) }}</h4>
+      <!-- <p class="meaning">
+        <em>{{ e?.meaning }}</em>
+      </p> -->
+      <p class="layman">{{ layman(e) }}</p>
+
+      <ul class="facts">
+        <li *ngIf="e?.value !== null && e?.value !== undefined">
+          <strong>Observed:</strong> {{ e.value }}
+        </li>
+        <li *ngIf="e?.threshold !== null && e?.threshold !== undefined">
+          <strong>Threshold:</strong> {{ e.threshold }}
+        </li>
+        <li *ngIf="e?.score !== null && e?.score !== undefined">
+          <strong>Score:</strong> {{ e.score }}
+        </li>
+        <li *ngIf="e?.weight !== null && e?.weight !== undefined">
+          <strong>Weight:</strong> {{ e.weight }}
+        </li>
+      </ul>
+
+      <div class="status">
+        Status:
+        <span
+          class="badge"
+          [class.bad]="e?.result === false"
+          [class.good]="e?.result !== false"
+        >
+          {{ e?.result === false ? "FAILED" : "PASSED" }}
+        </span>
+      </div>
+
+      <hr />
+    </article>
+  </section>
+
+  <ng-template #empty>
+    <div class="empty">No explanations found for this alert.</div>
+  </ng-template>
+</div>

@@ -1,0 +1,234 @@
+<!-- <section class="pd-card" aria-spanledby="pd-title"> -->
+<!-- <header class="pd-header">
+      <div class="pd-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path
+            d="M3 3h2v16h14v2H3V3zm18 2H9v12h12V5zm-6.5 2 2.5 3 2.5-3 1.5 1-4 5-4-5 1.5-1zM11 15h8v2h-8v-2z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+      <div>
+        <p id="subHeading">Configure Insider Trading in 3 easy Steps</p>
+      </div>
+    </header> -->
+
+<div class="page">
+  <div class="mb-2">
+    <p class="subHeading">Configure Insider Trading</p>
+  </div>
+  <!-- <div class="grid-placeholder">
+    <img
+      src="assets/topDashBoard2.png"
+      alt="Pump & Dump"
+      class="w-12 h-12 mb-4"
+    />
+  </div> -->
+</div>
+
+<section class="kpis-grid">
+  <!-- Card 1 -->
+  <article class="kpi-card">
+    <div class="kpi-header">
+      <span class="kpi-title">Date Range</span>
+    </div>
+    <div class="kpi-value">4 days</div>
+    <div>
+      <span kpi-delta.down>17 Oct 2025 – 20 Oct 2025 </span>
+    </div>
+  </article>
+
+  <!-- Card 2 -->
+
+  <article class="kpi-card">
+    <div class="kpi-header">
+      <span class="kpi-title">Total Alerts</span>
+    </div>
+    <div class="kpi-value">6789 <span class="kpi-unit"></span></div>
+    <div class="kpi-delta up">
+      <span>+9.83%</span>
+    </div>
+  </article>
+
+  <!-- Card 3 -->
+  <article class="kpi-card">
+    <div class="kpi-header">
+      <span class="kpi-title">Insider Trades</span>
+    </div>
+    <div class="kpi-value">3,488<span class="kpi-unit"></span></div>
+    <div class="kpi-delta up">
+      <span>+5.7%</span>
+    </div>
+  </article>
+
+  <!-- Card 4 -->
+  <article class="kpi-card">
+    <div class="kpi-header">
+      <span class="kpi-title">High-Risk Alerts</span>
+    </div>
+    <div class="kpi-value">6</div>
+    <div class="kpi-delta up">
+      <span>+1.2%</span>
+    </div>
+  </article>
+</section>
+
+<div class="mb-6" style="margin-bottom: 25px">
+  <p class="text-gray-600">
+    Use the slider below to adjust the threshold values and evaluate trades
+    against their corresponding ML scores. Trades falling below the threshold
+    will be flagged for review.
+  </p>
+</div>
+
+<div class="align-center grid-container">
+  <ag-grid-angular
+    [theme]="'legacy'"
+    [class]="gridThemeClass"
+    style="width: 100%; height: 60vh; overflow-x: auto"
+    [rowData]="rowDataGrid1"
+    [columnDefs]="colDefsGrid1"
+    [defaultColDef]="defaultColDefGrid1"
+    [pagination]="true"
+    [paginationPageSize]="20"
+    [quickFilterText]="quickFilter"
+    [animateRows]="true"
+    [getRowId]="getRowId1"
+    (gridReady)="onGridReady()"
+  >
+  </ag-grid-angular>
+</div>
+
+<!-- Keep your rules button AFTER the grid -->
+
+<div class="hero-line-before"></div>
+<div class="mb-6">
+  <p class="text-gray-600">
+    Use the slider below to adjust the threshold values and evaluate trades
+    against their corresponding ML scores. Trades falling below the threshold
+    will be flagged for review.
+  </p>
+</div>
+
+<!-- <div class="button-row">
+  <button mat-raised-button class="cta" (click)="OpenWizard()">
+    <mat-icon>settings_suggest</mat-icon>
+    Configure True Positive
+  </button>
+</div> -->
+
+<div class="panel">
+  <div class="controls">
+    <div class="row">
+      <span>Out Dir</span>
+      <input [(ngModel)]="outDir" placeholder="C:/TradeMY3/data/simulated" />
+      <span>Limit</span>
+      <input type="number" min="100" max="150" [(ngModel)]="limit" />
+      <span>Return</span>
+      <select [(ngModel)]="returnMode">
+        <option value="tp_only">TP Only</option>
+        <option value="all">Both</option>
+      </select>
+      <span class="checkbox">
+        <input type="checkbox" [(ngModel)]="forceProxyScoring" />
+        Force proxy scoring
+      </span>
+      <button (click)="refresh()">Refresh</button>
+    </div>
+
+    <div class="row">
+      <span>Start (ISO)</span>
+      <input [(ngModel)]="startISO" placeholder="2025-01-01" />
+      <span>End (ISO)</span>
+      <input [(ngModel)]="endISO" placeholder="2025-12-31" />
+    </div>
+
+    <div class="row mode-row">
+      <span>Mode</span>
+      <select [(ngModel)]="thresholdMode">
+        <option value="fixed">Fixed</option>
+        <option value="quantile">Quantile (Top %)</option>
+      </select>
+
+      <ng-container *ngIf="thresholdMode === 'fixed'; else quantileTpl">
+        <span>Threshold</span>
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          [value]="threshold"
+          (input)="onThresholdChange($event)"
+        />
+        <span class="mono">{{ threshold | number : "1.2-2" }}</span>
+
+        <div class="suggest">
+          <span>Suggest:</span>
+          <button class="chip-btn" (click)="snapTo('p90')" [disabled]="!p90()">
+            p90 {{ p90() | number : "1.2-2" }}
+          </button>
+          <button class="chip-btn" (click)="snapTo('p95')" [disabled]="!p95()">
+            p95 {{ p95() | number : "1.2-2" }}
+          </button>
+          <span class="hint"
+            >Last used: {{ lastUsedThreshold() | number : "1.2-2" }}</span
+          >
+        </div>
+      </ng-container>
+
+      <ng-template #quantileTpl>
+        <span>Top %</span>
+        <input
+          type="range"
+          min="0.1"
+          max="20"
+          step="0.1"
+          [value]="topPct"
+          (input)="onTopPctChange($event)"
+        />
+        <span class="mono">{{ topPct | number : "1.1-1" }}%</span>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      TP: <b>{{ tpCount | number }}</b>
+    </div>
+    <div class="stat">
+      TN: <b>{{ tnCount | number }}</b>
+    </div>
+
+    <!-- Backend sends p90/p95 (not score_p90/score_p95) -->
+    <div class="stat" *ngIf="extras()?.p90 !== undefined">
+      p90: {{ extras()?.p90 | number : "1.3-3" }}
+    </div>
+    <div class="stat" *ngIf="extras()?.p95 !== undefined">
+      p95: {{ extras()?.p95 | number : "1.3-3" }}
+    </div>
+    <div class="stat" *ngIf="extras()?.used_threshold !== undefined">
+      used thr: {{ extras()?.used_threshold | number : "1.2-2" }}
+    </div>
+  </div>
+
+  <div class="grid-wrap">
+    <ag-grid-angular
+      [theme]="'legacy'"
+      [class]="gridThemeClass"
+      style="width: 100%; height: 65vh; overflow-x: auto"
+      [rowData]="rowData()"
+      [columnDefs]="colDefs()"
+      [pagination]="true"
+      [paginationPageSize]="20"
+      [animateRows]="true"
+    >
+    </ag-grid-angular>
+  </div>
+
+  <div class="error" *ngIf="errorMsg()">{{ errorMsg() }}</div>
+  <div class="loading" *ngIf="isLoading()">Loading…</div>
+
+  <button mat-raised-button class="cta" (click)="openMnpiPopup()">
+    Show MNPI = True
+  </button>
+</div>

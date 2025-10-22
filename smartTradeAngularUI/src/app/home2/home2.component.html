@@ -1,0 +1,168 @@
+<main class="home-page">
+  <section class="homepage-hero">
+    <div class="homepage-title">
+      <h1 class="header-title">Trade Surveillance Dashboard</h1>
+      <p class="subtitle">
+        Alerts are categorized into key types such as Front Running, Wash
+        Trades, Pump & Dump (Ramping), Spoofing, and Churning. Once detected,
+        real-world rules—such as configurable time windows, parameters, and
+        weights—are applied to align them with actual market scenarios. In
+        addition, LLM capabilities are leveraged to validate these alerts
+        against real-world context, enhancing accuracy and reducing false
+        positives
+      </p>
+    </div>
+
+    <div class="homepage-logo">
+      <img src="assets/ustlogo.png" alt="Exchange Logo" />
+    </div>
+  </section>
+
+  <!-- === New content layout starts here === -->
+  <section class="content-layout">
+    <!-- Left: 20% stats panel -->
+    <aside class="side-panel">
+      <h3 class="panel-title">At a Glance</h3>
+
+      <div class="kpi">
+        <div class="kpi-icon">📊</div>
+        <div class="kpi-text">
+          <div class="kpi-label">Total Trades</div>
+          <div class="kpi-value">451,547,148</div>
+        </div>
+      </div>
+
+      <div class="kpi">
+        <div class="kpi-icon">⚠️</div>
+        <div class="kpi-text">
+          <div class="kpi-label">Fault Trades</div>
+          <div class="kpi-value">1,547,980</div>
+        </div>
+      </div>
+
+      <div class="kpi">
+        <div class="kpi-icon">🏷️</div>
+        <div class="kpi-text">
+          <div class="kpi-label">Unique Tickers</div>
+          <div class="kpi-value">50</div>
+        </div>
+      </div>
+
+      <div class="kpi">
+        <div class="kpi-icon">👤</div>
+        <div class="kpi-text">
+          <div class="kpi-label">Unique Traders</div>
+          <div class="kpi-value">100</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right: cards grid (max 3 per row) -->
+    <div class="cards-area">
+      <div class="cards-grid">
+        <!-- Move your existing feature cards into this grid -->
+        <a class="card banner card-white" routerLink="/dashboard">
+          <div class="card-icon">📝</div>
+          <h2>Reports</h2>
+          <small>Real Time Reporting</small>
+        </a>
+
+        <!-- Python-backed -->
+        <a class="card" routerLink="/real-time-monitoring">
+          <div class="card-icon">📈</div>
+          <h2>Front Running</h2>
+          <small>(Client / Research)</small>
+        </a>
+
+        <a class="card" routerLink="/wash-trade-alerts">
+          <div class="card-icon">⏰</div>
+          <h2>Wash / Cross Trades</h2>
+          <small>Matched buys and sells between same party</small>
+        </a>
+
+        <a class="card" routerLink="/pump-and-dump2">
+          <div class="card-icon">🔨</div>
+          <h2>Layering</h2>
+          <small></small>
+        </a>
+
+        <a class="card" routerLink="/data-integration">
+          <div class="card-icon">💾</div>
+          <h2>Spoofing</h2>
+          <small>Rapid order placement + cancel</small>
+        </a>
+
+        <!-- .NET-backed -->
+        <a class="card" routerLink="/compliance-assurance">
+          <div class="card-icon">🛡️</div>
+          <h2>Churning</h2>
+          <small>High volume, low holding time</small>
+        </a>
+
+        <a class="card" routerLink="/advanced-analytics">
+          <div class="card-icon">📊</div>
+          <h2>Open/Close Analytics</h2>
+          <small>Identify patterns & anomalies</small>
+        </a>
+
+        <a class="card" routerLink="/pump-and-dump">
+          <div class="card-icon">🔍</div>
+          <h2>Pump & Dump</h2>
+          <small>Ramping</small>
+        </a>
+
+        <a class="card" routerLink="/insider-trading">
+          <div class="card-icon">👤</div>
+          <h2>Insider Trading</h2>
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- === New content layout ends here === -->
+</main>
+
+<footer class="web-footer">
+  <div class="web-footer__bottom-bar">
+    <!-- system status -->
+    <a
+      href="https://www.ust.com/"
+      target="_blank"
+      rel="noopener"
+      class="status-link"
+    >
+      <span class="status-indicator online"></span>
+      <span class="status-text">All systems operational</span>
+    </a>
+
+    <!-- bottom links & actions -->
+    <div class="web-footer__links">
+      <a
+        href="https://www.ust.com/en/insights/"
+        target="_blank"
+        rel="external noopener"
+        class="footer-link"
+      >
+        Terms of Use
+      </a>
+      <a
+        href="https://www.ust.com/en/legal-notice/privacy-policy"
+        target="_blank"
+        rel="external noopener"
+        class="footer-link"
+      >
+        Privacy Policy
+      </a>
+      <a
+        href="https://www.ust.com/en/what-we-do"
+        target="_blank"
+        rel="external noopener"
+        class="footer-link"
+      >
+        Cookie Policy
+      </a>
+      <button class="cookie-settings">Cookie settings</button>
+      <span class="footer-copyright">© 2025 UST</span>
+    </div>
+  </div>
+</footer>
+<router-outlet></router-outlet>

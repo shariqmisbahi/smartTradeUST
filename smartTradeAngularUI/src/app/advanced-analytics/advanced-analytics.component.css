@@ -1,0 +1,135 @@
+.analytics-layout {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: #333;
+  gap: 20px;
+  padding: 30px;
+}
+
+/* Left Info Panel */
+.info-panel {
+  flex: 1 1 25%;
+  background: #e3f2fd;
+  border-radius: 10px;
+  padding: 20px;
+  min-width: 280px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.info-panel h2 {
+  font-size: 1.5rem;
+  color: #0d47a1;
+  margin-bottom: 15px;
+}
+
+.intro {
+  font-size: 14px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.stat-box {
+  background: #bbdefb;
+  border-left: 5px solid #1976d2;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+}
+
+.stat-box h3 {
+  font-size: 1rem;
+  margin: 0 0 5px;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0d47a1;
+  margin: 0;
+}
+
+.fault-list {
+  font-size: 14px;
+  padding-left: 18px;
+  margin: 10px 0 20px;
+  line-height: 1.6;
+}
+
+.note {
+  font-size: 12px;
+  font-style: italic;
+  color: #555;
+}
+
+/* Right Chart Panel */
+.chart-panel {
+  flex: 1 1 70%;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.chart-section {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.chart-section h3 {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: #1a237e;
+}
+
+canvas {
+  width: 100% !important;
+  height: 400px !important;
+}
+
+.hugeMarginBottom {
+  margin-bottom: 100px;
+}
+
+.web-footer__links {
+  display: flex;
+  align-items: center;
+}
+
+.footer-link,
+.cookie-settings {
+  font-size: 0.875rem;
+  margin-right: 1rem;
+  text-decoration: none;
+  color: #555;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.footer-link:hover,
+.cookie-settings:hover {
+  text-decoration: underline;
+}
+
+.cookie-settings {
+  padding: 0;
+  font-family: inherit;
+}
+
+.footer-link:last-of-type,
+.cookie-settings:last-of-type {
+  margin-right: 0.5rem;
+}
+
+.footer-link + .cookie-settings,
+.cookie-settings + .footer-copyright {
+  margin-left: 1rem;
+}
+
+.footer-copyright {
+  font-size: 0.75rem;
+  color: #888;
+}

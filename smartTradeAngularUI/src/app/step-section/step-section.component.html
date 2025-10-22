@@ -1,0 +1,32 @@
+<section class="step-card" [class.disabled]="!enabled">
+  <header class="step-card__header">
+    <div class="title">
+      <ng-container *ngIf="showIndex">
+        <span class="badge">{{ index }}</span>
+      </ng-container>
+
+      <div>
+        <div class="heading">{{ title }}</div>
+        <div class="sub" *ngIf="subtitle">{{ subtitle }}</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button
+        class="btn primary"
+        (click)="complete.emit()"
+        [disabled]="!enabled || completeDisabled"
+      >
+        {{ completeLabel || "Mark Complete" }}
+      </button>
+    </div>
+  </header>
+
+  <div class="step-card__body">
+    <ng-content></ng-content>
+  </div>
+
+  <div class="lock" *ngIf="!enabled">
+    <span>🔒 Complete Step {{ index - 1 }} to unlock</span>
+  </div>
+</section>

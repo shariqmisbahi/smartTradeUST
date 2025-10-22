@@ -1,0 +1,96 @@
+<div class="analytics-layout">
+  <!-- Left Panel -->
+  <aside class="info-panel">
+    <h2>📘 Fault Summary</h2>
+    <p class="intro">
+      This dashboard provides insight into market manipulation activities
+      detected by our surveillance system.
+    </p>
+
+    <div class="stat-box">
+      <h3>Total Faults Detected</h3>
+      <p class="stat-value">{{ totalFaults | number }}</p>
+    </div>
+    <p>
+      🛡️ This chart shows the proportion of different market manipulation types
+      detected by the system.
+    </p>
+    <ul>
+      <li>
+        <strong>Churning</strong>: {{ faultCounts[4] | number }} occurrences
+      </li>
+      <li>
+        <strong>Ramping</strong>: {{ faultCounts[2] | number }} occurrences
+      </li>
+      <li>
+        <strong>Spoofing</strong>: {{ faultCounts[3] | number }} occurrences
+      </li>
+      <li>
+        <strong>Wash Trade</strong>: {{ faultCounts[0] | number }} occurrences
+      </li>
+      <li>...others included</li>
+    </ul>
+    <div class="hugeMarginBottom"></div>
+    <h4>🛡️ Key Fault Types</h4>
+    <ul class="fault-list">
+      <li><strong>Churning</strong>: Repeated trades for commissions</li>
+      <li><strong>Spoofing</strong>: Fake orders to influence price</li>
+      <li><strong>Wash Trade</strong>: Self-buy/sell trades</li>
+      <li><strong>Ramping</strong>: Price boosting via manipulation</li>
+      <li>Others: Front Running, Marking Open/Close</li>
+    </ul>
+
+    <footer class="note">
+      📌 These patterns help identify risky behaviors and maintain market
+      integrity.
+    </footer>
+  </aside>
+
+  <!-- Right Panel -->
+  <main class="chart-panel">
+    <!-- Pie Chart -->
+    <div class="chart-section">
+      <h3>📊 Fault Distribution (Pie Chart)</h3>
+      <canvas baseChart [data]="pieChartData" [type]="'pie'"> </canvas>
+    </div>
+
+    <!-- Bar Chart -->
+    <div class="chart-section">
+      <h3>📈 Fault Counts (Bar Chart)</h3>
+      <canvas baseChart [data]="barChartData" [type]="'bar'"> </canvas>
+    </div>
+  </main>
+  <footer class="web-footer">
+    <div class="web-footer__bottom-bar">
+      <!-- bottom links & actions -->
+      <div class="web-footer__links">
+        <a
+          href="https://www.ust.com/en/insights/"
+          target="_blank"
+          rel="external noopener"
+          class="footer-link"
+        >
+          Terms of Use
+        </a>
+        <a
+          href="https://www.ust.com/en/legal-notice/privacy-policy"
+          target="_blank"
+          rel="external noopener"
+          class="footer-link"
+        >
+          Privacy Policy
+        </a>
+        <a
+          href="https://www.ust.com/en/what-we-do"
+          target="_blank"
+          rel="external noopener"
+          class="footer-link"
+        >
+          Cookie Policy
+        </a>
+        <button class="cookie-settings">Cookie settings</button>
+        <span class="footer-copyright">© 2025 UST</span>
+      </div>
+    </div>
+  </footer>
+</div>

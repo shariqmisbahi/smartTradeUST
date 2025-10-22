@@ -1,0 +1,56 @@
+.button-row {
+  display: flex;
+  justify-content: center; /* or flex-start if preferred */
+  margin: 35px 0 6px;
+  gap: 10px;
+  /* border: 1px solid #5eead4;
+  background: #99f6e4;
+  color: #fff; */
+}
+.btn {
+  /* border: 1px solid #0ea5e9;
+  background: #0ea5e9; */
+  /* border: 1px solid #5eead4; */
+  background: #99f6e4;
+  border-radius: 10px;
+  padding: 8px 8px;
+  cursor: pointer;
+  margin: 2px 0 0 5px;
+  display: grid;
+  grid-template-columns: 20px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #0f172a;
+  border: 1px solid transparent;
+}
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* similar to mat-icon-button */
+  height: 40px;
+  border: none;
+  border-radius: 9999px; /* circular */
+  background: transparent;
+  color: #334155; /* slate-700-ish */
+  cursor: pointer;
+  transition: background-color 120ms ease, transform 80ms ease;
+}
+
+.icon-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.icon-btn:active {
+  transform: scale(0.98);
+}
+
+.icon-btn:focus-visible {
+  outline: 2px solid #0ea5e9; /* sky-500 */
+  outline-offset: 2px;
+}
+
+.icon-btn svg {
+  display: block;
+}

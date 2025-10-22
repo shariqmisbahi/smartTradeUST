@@ -1,0 +1,43 @@
+name: smarttrade
+
+networks:
+  ust-net:
+    external: true   # use ONLY this precreated network
+
+services:
+  api:
+    container_name: smarttrade-api
+    build:
+      context: ./pythonApi
+    env_file:
+      - ./env.txt
+    environment:
+      PORT: ${PORT:-5294}
+    ports:
+      - "5294:5294"
+    volumes:
+      - ./pythonApi/app:/app/app:rw
+      - ./pythonApi/data:/app/data:rw
+      - ./pythonApi/logs:/app/logs:rw
+      - ./pythonApi/uploads:/app/uploads:rw
+      - ./pythonApi/env.txt:/app/env.txt:ro
+    networks: [ust-net]
+    command: ["/bin/bash", "-lc", "/app/start.sh"]
+    restart: unless-stopped
+
+  ui:
+    container_name: smarttrade-ui
+    build:
+      context: ./smartTradeAngularUI
+    ports:
+      - "4100:4100"
+    volumes:
+      - ./smartTradeAngularUI:/usr/src/app:rw
+      - /usr/src/app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      # Optionally tell your UI how to reach the API on the same network:
+      # - API_BASE_URL=http://smarttrade-api:5294
+    networks: [ust-net]
+    command: ["bash", "-lc", "npm run start-docker"]
+    restart: unless-stopped

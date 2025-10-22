@@ -1,0 +1,184 @@
+/* Wider inner content area (the actual width is set when opening the dialog) */
+.content {
+  width: 900px;
+  max-width: 95vw;
+  padding-bottom: 8px;
+}
+
+/* Stepper spacing */
+.stepper { margin-top: 12px; }
+
+/* Two-column grid that collapses nicely */
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;                 /* more breathing room */
+}
+.full { width: 100%; }
+
+/* Title + subtitle */
+.title {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700;          /* bold heading */
+  font-size: 1.4rem;
+}
+.subtitle { margin: 2px 0 12px; color: #666; }
+
+/* Actions row */
+.actions {
+  margin-top: 16px;
+  display: flex; gap: 10px;
+  justify-content: flex-end;
+}
+
+/* Review list formatting */
+.review h3 {
+  display: flex; align-items: center; gap: 6px;
+  margin: 12px 0 8px;
+  font-weight: 700;
+}
+.review dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 16px;
+  margin: 0 0 12px;
+  font-weight: 600;          /* bolder items */
+}
+
+/* Help text readability */
+.mat-hint {
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+/* Prevent fields from visually colliding (fixes “overlap” feel) */
+.mat-mdc-form-field { margin-bottom: 12px; }
+.mat-mdc-form-field-subscript-wrapper { margin-top: 6px; }
+
+/* Responsive collapse */
+@media (max-width: 860px) {
+  .grid2 { grid-template-columns: 1fr; }
+  .content { width: 100%; }
+}
+
+/* ---- Form-field label: stop trimming / allow wrapping ---- */
+.param-wizard-panel .mdc-floating-label,
+.param-wizard-panel .mat-mdc-form-field .mdc-floating-label,
+.param-wizard-panel .mat-mdc-floating-label {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+
+/* Give the floating multi-line label some room */
+.param-wizard-panel .mat-mdc-form-field-infix {
+  padding-top: 10px;   /* prevents overlap when label floats */
+}
+
+/* ---- Stepper labels: show full text (no …) ---- */
+.param-wizard-panel .mat-step-text-label {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+.param-wizard-panel .mat-horizontal-stepper-header {
+  height: auto !important;           /* allow taller header if label wraps */
+  align-items: flex-start;
+}
+.param-wizard-panel .mat-horizontal-stepper-header-container {
+  overflow: visible;                  /* so wrapped text isn’t clipped */
+}
+/* Give the floating label room so it doesn’t visually “hit” the outline */
+.param-wizard-panel .mat-mdc-form-field-infix {
+  padding-top: 20px; /* tweak 18–24px if you like */
+}
+
+/* Prevent any ellipsis on floating labels */
+.param-wizard-panel .mdc-floating-label,
+.param-wizard-panel .mat-mdc-floating-label {
+  white-space: nowrap !important; /* keep it single-line inside notch */
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+/* Round the dialog surface itself */
+.param-wizard-panel .mat-mdc-dialog-surface {
+  border-radius: 16px !important;
+}
+
+/* Round the outlined input borders */
+.param-wizard-panel .mdc-notched-outline,
+.param-wizard-panel .mdc-notched-outline__leading,
+.param-wizard-panel .mdc-notched-outline__trailing {
+  border-radius: 12px !important;
+}
+.param-wizard-panel .field-title {
+  font-weight: 600;
+  margin: 4px 0 2px;
+}
+/* Title row */
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;                     /* remove default h2 margin */
+  font-weight: 800;
+  font-size: clamp(18px, 2.2vw, 22px);
+  letter-spacing: 0.2px;
+  color: #0f172a;                /* slate-900 */
+}
+
+/* Fancy emoji badge */
+.title-emoji {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  font-size: 22px;               /* emoji size */
+  line-height: 1;                /* tighter */
+  user-select: none;
+  background: linear-gradient(135deg, #7c3aed, #06b6d4);
+  box-shadow: 0 10px 22px rgba(2, 6, 23, .16);
+  /* Optional subtle ring: */
+  border: 1px solid rgba(255, 255, 255, .6);
+}
+
+/* Optional: underline the dialog title area */
+.title + * {
+  margin-top: 10px;
+  border-top: 1px dashed #e2e8f0;    /* slate-200 */
+  padding-top: 12px;
+}
+
+/* Bigger variant if you want it chunkier */
+.title--xl { font-size: clamp(20px, 2.6vw, 26px); }
+.title--xl .title-emoji { width: 42px; height: 42px; font-size: 26px; border-radius: 12px; }
+/* Two-column review layout */
+.review-card {
+  display: grid;
+  gap: 16px;
+  width: 350px;
+  background-color: #aeeea2;
+}
+.review-cards{
+  width: 350px;
+}
+.param-card {
+  display: grid;
+  gap: 16px;
+  width: 350px;
+  background-color: #f8b9e0;
+}
+
+.review-col {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.review-col h4 {
+  margin: 0 0 8px 0;
+  font-size: 0.95rem;
+  color: #334155;
+}

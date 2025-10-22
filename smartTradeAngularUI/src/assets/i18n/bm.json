@@ -1,0 +1,19 @@
+{
+  "TITLE": "Papan Pemantauan Dagangan Bursa Malaysia",
+  "SUBTITLE": "Projek ini mensimulasikan dagangan masa nyata di bursa saham Malaysia, termasuk pengesanan manipulasi pasaran.",
+  "REPORTS": "Laporan",
+  "REALTIME_REPORT": "Pelaporan Masa Nyata",
+  "SUSPICIOUS": "Pengesanan Aktiviti Mencurigakan",
+  "INSIDER": "Kesalahan dagangan orang dalam, jualan singkat",
+  "DATA_SCRAPPING": "Pengikisan Data",
+  "ENFORCE": "Kuatkuasakan peraturan Bursa/SC Malaysia",
+  "REALTIME_MONITOR": "Pemantauan Masa Nyata",
+  "STREAM": "Alirkan acara dagangan secara langsung",
+  "DATA_INTEGRATION": "Penyatuan Data",
+  "CONSOLIDATE": "Gabungkan sumber data dagangan",
+  "COMPLIANCE": "Jaminan Pematuhan",
+  "WASH_ALERTS": "Amaran Dagangan Cuci",
+  "ADVANCED": "Analitik Lanjutan",
+  "IDENTIFY": "Kenalpasti corak & anomali",
+  "STAKEHOLDER": "Akses Pemegang Taruh"
+}

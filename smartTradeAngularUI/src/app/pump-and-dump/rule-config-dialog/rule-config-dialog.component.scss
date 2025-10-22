@@ -1,0 +1,26 @@
+.content-grid {
+  display: grid;
+  gap: 16px;
+  padding-top: 4px;
+}
+.section {
+  background: #fafafa;
+  border-radius: 12px;
+  padding: 12px;
+}
+.row {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+}
+.grid-3 {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, 1fr);
+}
+.span-2 {
+  grid-column: span 2;
+}
+mat-dialog-content {
+  max-height: 70vh;
+}

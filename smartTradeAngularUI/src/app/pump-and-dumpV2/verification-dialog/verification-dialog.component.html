@@ -1,0 +1,68 @@
+<div class="wrap">
+  <h2 class="title">Verification & Generation</h2>
+
+  <div class="subtitle"></div>
+
+  <div class="steps">
+    <div class="step" *ngFor="let s of steps()">
+      <div class="left">
+        <mat-icon *ngIf="s.state === 'pending'"
+          >radio_button_unchecked</mat-icon
+        >
+        <mat-icon *ngIf="s.state === 'running'" class="spin"
+          >autorenew</mat-icon
+        >
+        <mat-icon *ngIf="s.state === 'done'" class="ok">check_circle</mat-icon>
+        <mat-icon *ngIf="s.state === 'error'" class="err">error</mat-icon>
+      </div>
+      <div class="label">
+        {{ s.label }}
+        <div class="err-text" *ngIf="s.state === 'error' && s.error">
+          {{ s.error }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="api-row" *ngIf="!apiCalling() && !apiDone() && !hasError()">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="start()"
+      [disabled]="busy()"
+    >
+      Start
+    </button>
+  </div>
+
+  <div class="api-row" *ngIf="apiCalling()">
+    <mat-spinner diameter="20"></mat-spinner>
+    <span>Calling verification API…</span>
+  </div>
+
+  <div class="api-row" *ngIf="apiDone() && !hasError()">
+    <button mat-flat-button color="primary" (click)="openPdf()">
+      Open PDF
+    </button>
+    <button mat-stroked-button (click)="downloadPdf()">Download</button>
+    <span class="hint">Completed successfully.</span>
+  </div>
+
+  <div class="api-row" *ngIf="hasError()">
+    <mat-icon class="err">error</mat-icon>
+    <span class="err-text">Something went wrong. Please try again.</span>
+  </div>
+
+  <div class="footer">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="close()"
+      [disabled]="busy() && !apiDone()"
+    >
+      Close
+    </button>
+  </div>
+</div>
