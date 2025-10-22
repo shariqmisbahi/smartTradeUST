@@ -28,14 +28,20 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc",
     openapi_tags=TAGS_METADATA,  # show tag group in Swagger
+    root_path="/api",  # For serving behind reverse proxy at /api/*
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://smart-trade.ustsea.com",  # Production (Cloudflare tunnel)
+        "http://localhost:4100",            # Local development
+        "http://127.0.0.1:4100",            # Local development
+        "http://smarttrade-ui:4100",        # Docker internal
+    ],
     allow_methods=["*"],
     allow_headers=["*"],
-    allow_credentials=False,
+    allow_credentials=True,
 )
 
 # Import routers normally (now that sys.path is fixed)

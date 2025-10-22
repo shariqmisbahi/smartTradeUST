@@ -1,0 +1,45 @@
+# Cloudflare Tunnel Configuration for smartTradeUST
+#
+# SETUP INSTRUCTIONS:
+# 1. Install cloudflared: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation/
+# 2. Login: cloudflared tunnel login
+# 3. Create tunnel: cloudflared tunnel create smart-trade
+# 4. Copy the tunnel ID and credentials to ~/.cloudflared/
+# 5. Update the tunnel ID below
+# 6. Route your domain: cloudflared tunnel route dns <tunnel-id> smart-trade.ustsea.com
+# 7. Run: cloudflared tunnel --config /path/to/this/file run
+
+# Replace YOUR-TUNNEL-ID with your actual tunnel ID from step 3
+tunnel: YOUR-TUNNEL-ID
+credentials-file: /home/sshuser/.cloudflared/YOUR-TUNNEL-ID.json
+
+# Ingress rules - order matters!
+ingress:
+  # Route 1: API endpoints (must come first)
+  # All requests to /api/* go to the FastAPI backend
+  - hostname: smart-trade.ustsea.com
+    path: /api/*
+    service: http://localhost:5294
+    originRequest:
+      noTLSVerify: false
+      connectTimeout: 30s
+      keepAliveTimeout: 90s
+
+  # Route 2: Frontend (catch-all for everything else)
+  # All other requests go to Angular UI
+  - hostname: smart-trade.ustsea.com
+    service: http://localhost:4100
+    originRequest:
+      noTLSVerify: false
+
+  # Route 3: Catch-all (required by cloudflared)
+  - service: http_status:404
+
+# Optional: Enable metrics for monitoring
+metrics: localhost:8099
+
+# Optional: Logging configuration
+loglevel: info
+
+# Optional: Auto-update
+no-autoupdate: false

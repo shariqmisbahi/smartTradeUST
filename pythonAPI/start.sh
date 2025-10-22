@@ -1,4 +1,3 @@
-cat > pythonApi/start.sh <<'BASH'
 #!/usr/bin/env bash
 set -e
 
@@ -19,11 +18,8 @@ mkdir -p /app/data /app/logs /app/uploads /app/generated
 
 echo "=== Starting tradeAPI Backend ==="
 echo "Timestamp: $(date)"
-echo "APP_NAME=${APP_NAME:-tradeAPI} | PORT=${PORT}"
+echo "APP_NAME=${APP_NAME:-tradeAPI Backend} | PORT=${PORT}"
 echo "CORS_ORIGINS=${CORS_ORIGINS}"
 
 # Start FastAPI (remove --reload for pure prod)
 exec python -m uvicorn app.main:app --host 0.0.0.0 --port "$PORT" --reload
-BASH
-
-chmod +x pythonApi/start.sh

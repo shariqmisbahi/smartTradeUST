@@ -6,13 +6,12 @@ import {
   InsiderTradingApiResponse,
   InsiderTradingRow,
 } from '../models/insiderTrading.models';
+import { ApiConfig } from '../config/api.config';
 
 @Injectable({ providedIn: 'root' })
 export class InsiderTradingService {
-  private baseUrl =
-    'http://localhost:5294/simulate/alerts/latest/insidertrading';
+  private baseUrl = ApiConfig.SIMULATE_LATEST_INSIDER;
 
-  //constructor(private http: HttpClient) {}
   private http = inject(HttpClient);
 
   getLatest(outDir: string, limit = 200): Observable<InsiderTradingRow[]> {

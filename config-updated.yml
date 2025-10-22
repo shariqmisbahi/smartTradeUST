@@ -1,0 +1,71 @@
+tunnel: 32fd58f7-2af5-4776-9ac1-ef2557e466d3
+credentials-file: /etc/cloudflared/32fd58f7-2af5-4776-9ac1-ef2557e466d3.json
+
+ingress:
+
+  - hostname: visual.ustsea.com
+    service: http://localhost:20142
+
+  - hostname: avatar.ustsea.com
+    service: http://localhost:10921
+
+  - hostname: opsforge.ustsea.com
+    service: http://localhost:30012
+
+  # ===== UPDATED: smart-trade.ustsea.com with API routing =====
+  # Route API requests to backend (port 5294)
+  - hostname: smart-trade.ustsea.com
+    path: /api/*
+    service: http://localhost:5294
+
+  # Route all other requests to frontend (port 4100)
+  - hostname: smart-trade.ustsea.com
+    service: http://localhost:4100
+  # ============================================================
+
+  - hostname: aseanbridge.ustsea.com
+    service: http://localhost:40120
+
+  - hostname: agent.ustsea.com
+    service: http://localhost:23124
+
+  - hostname: ustsea.com
+    service: http://localhost:41234
+
+  - hostname: slm.ustsea.com
+    service: http://localhost:38123
+
+  - hostname: claim.ustsea.com
+    service: http://localhost:32768
+
+  - hostname: aegis.ustsea.com
+    service: http://localhost:3300
+
+  - hostname: aegis-api.ustsea.com
+    service: http://localhost:3301
+
+  - hostname: fab.ustsea.com
+    service: http://localhost:50021
+
+  - hostname: gbs.ustsea.com
+    service: http://localhost:50012
+
+  - hostname: fd2025.invergence.in
+    service: http://localhost:11000
+
+  - hostname: readiness.ustsea.com
+    service: http://localhost:50123
+
+  - hostname: ssh.ustsea.com
+    service: tcp://localhost:22
+
+  - hostname: resume.ustsea.com
+    service: http://localhost:13482
+
+  - hostname: insurance.ustsea.com
+    service: http://localhost:33112
+
+  - hostname: insurance-dev.ustsea.com
+    service: http://localhost:33113
+
+  - service: http_status:404
