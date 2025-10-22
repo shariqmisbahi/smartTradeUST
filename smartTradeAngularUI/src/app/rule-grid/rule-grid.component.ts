@@ -28,6 +28,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 //import { finalize, timer, switchMap } from 'rxjs';
 import { MatTabsModule } from '@angular/material/tabs';
+import { apiUrl } from '../../environments/environment';
+
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 @Component({
@@ -71,9 +73,11 @@ export class RuleGridComponent implements OnInit, OnDestroy {
 
   @ViewChild(AgGridAngular) grid?: AgGridAngular<PumpDumpRow>;
 
-  readonly API_URL =
-    'http://localhost:5294/simulate/alerts/latest/pumpdump?out_dir=C%3A%2FTradeMY3%2Fdata%2Fsimulated&limit=100';
-
+  readonly API_URL = (() => {
+    const u = new URL(apiUrl('simulate/alerts/latest/pumpdump'));
+    u.searchParams.set('limit', '200');
+    return u.toString();
+  })();
   defaultColDefGrid1: ColDef = {
     sortable: true,
     //filter: true,

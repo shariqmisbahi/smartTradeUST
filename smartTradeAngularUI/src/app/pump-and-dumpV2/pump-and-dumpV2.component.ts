@@ -36,6 +36,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ParamWizardDialogv2Component } from '../pump-and-dumpV2/param-wizard-dialogv2/param-wizard-dialog-v2.component';
 import { ExplainDialogMlComponent } from '../explain-dialog-ml/explain-dialog-ml.component'; // keep this path consistent
 import { VerificationDialogComponent } from './verification-dialog/verification-dialog.component';
+import { apiUrl } from '../../environments/environment';
+
 export interface Explanation {
   criterion: string;
   value: number | string | boolean | null;
@@ -188,8 +190,8 @@ export class PumpandDumpV2Component implements OnInit, OnDestroy {
   @ViewChild('calibGrid', { static: false }) calibGrid?: AgGridAngular;
 
   // form controls
-  outDir = 'C:/TradeMY3/data/simulated';
-  limit = 100;
+  outDir = '';
+  limit = 200;
 
   // data state (signals)
   loading = signal(false);
@@ -201,9 +203,7 @@ export class PumpandDumpV2Component implements OnInit, OnDestroy {
   private calibApi?: GridApi;
 
   rowDataGrid1: PumpDumpRow[] = [];
-
-  readonly API_URL =
-    'http://localhost:5294/simulate/alerts/latest/pumpdump?out_dir=C%3A%2FTradeMY3%2Fdata%2Fsimulated&limit=100';
+  // Default values you already expose in the UI
 
   defaultColDefGrid1: ColDef = {
     sortable: true,
@@ -279,7 +279,7 @@ export class PumpandDumpV2Component implements OnInit, OnDestroy {
     this.loading.set(true);
     this.error.set(null);
 
-    this.http.get<ApiPnDResponse>(this.API_URL).subscribe({
+    this.http.get<ApiPnDResponse>(this.latestUrl()).subscribe({
       next: (resp) => {
         this.totalCount = resp.pump_and_dump_count ?? resp.count ?? null;
         this.rowDataGrid1 = resp?.results ?? [];
@@ -306,7 +306,13 @@ export class PumpandDumpV2Component implements OnInit, OnDestroy {
   onQuickFilterChange(): void {
     this.grid?.api.setGridOption('quickFilterText', this.quickFilter || '');
   }
-
+  // Build the latest endpoint dynamically
+  private latestUrl() {
+    // If your backend no longer needs out_dir, just drop that key.
+    return this.url('simulate/alerts/latest/pumpdump', {
+      limit: this.limit,
+    });
+  }
   exportCsv(): void {
     this.grid?.api.exportDataAsCsv({
       fileName: 'pumpdump_latest.csv',
@@ -463,7 +469,7 @@ export class PumpandDumpV2Component implements OnInit, OnDestroy {
   defaultColDefML: ColDef = { sortable: true, filter: true, resizable: true };
 
   loaderUrl = 'assets/loader.gif';
-  private readonly CALIBRATE_URL = 'http://localhost:5294/pumpdumpml/detect';
+  private readonly CALIBRATE_URL = this.url('pumpdumpml/detect');
 
   calibRows: any[] = []; // parent rows from wizard
   showTPOnly = true;
@@ -1053,8 +1059,10 @@ export class PumpandDumpV2Component implements OnInit, OnDestroy {
   getRowStyle1: any = null;
   onMLGridReady1 = (_e: any) => {};
 
-  private verificationEndpoint =
-    'http://localhost:5294/reports/ml/high-risk.pdf?limit=50'; // <-- change to your real endpoint
+  // private verificationEndpoint =
+  private verificationEndpoint = this.url('reports/ml/high-risk.pdf', {
+    limit: 50,
+  });
 
   verifyWithIntel() {
     this.verifying = true;
@@ -1062,7 +1070,7 @@ export class PumpandDumpV2Component implements OnInit, OnDestroy {
       width: '775px',
       disableClose: true,
       data: {
-        apiUrl: 'http://localhost:5294/reports/ml/high-risk.pdf?limit=20', // <-- use GET route
+        apiUrl: this.url('reports/ml/high-risk.pdf', { limit: 20 }),
       },
     });
     ref.afterClosed().subscribe(() => (this.verifying = false));
@@ -1082,5 +1090,19 @@ export class PumpandDumpV2Component implements OnInit, OnDestroy {
     document.body.appendChild(a);
     a.click();
     a.remove();
+  }
+
+  // Build a fully-qualified API URL with optional query params
+  private url(
+    path: string,
+    params?: Record<string, string | number | boolean | undefined>
+  ) {
+    const base = apiUrl(path); // joins with environment.API_BASE
+    if (!params) return base;
+    const u = new URL(base);
+    Object.entries(params).forEach(([k, v]) => {
+      if (v !== undefined && v !== null) u.searchParams.set(k, String(v));
+    });
+    return u.toString();
   }
 }

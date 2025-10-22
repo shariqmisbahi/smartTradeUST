@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { apiUrl } from '../../environments/environment';
 
 export interface RefineExtras {
   tp_count: number;
@@ -20,14 +21,12 @@ export interface RefineResponse {
   extras?: RefineExtras;
 }
 
-// IMPORTANT: backend expects "tp_only" | "all" (not "both")
 export type ThresholdMode = 'fixed' | 'quantile';
 export type ReturnMode = 'tp_only' | 'all';
 
 @Injectable({ providedIn: 'root' })
 export class InsiderTradingRefineService {
-  // Change baseURL if your backend is different
-  private baseURL = 'http://localhost:5294/insidertrading';
+  private readonly baseURL = apiUrl('insidertrading');
   private http = inject(HttpClient);
 
   async refine(payload: {

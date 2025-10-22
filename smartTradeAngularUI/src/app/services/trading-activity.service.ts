@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
+import { apiUrl } from '../../environments/environment';
 
 export interface TradeResponse {
   count: number;
@@ -9,14 +10,11 @@ export interface TradeResponse {
 
 @Injectable({ providedIn: 'root' })
 export class TradingActivityService {
-  private baseUrl = 'http://localhost:5294/api/features/data/trades';
+  // Do NOT include '/api' here because API_BASE already includes it in prod.
+  private readonly baseUrl = apiUrl('features/data/trades');
 
   constructor(private readonly http: HttpClient) {}
 
-  /**
-   * Server-side paging. If your API uses offset/limit instead of page/limit,
-   * tell me and I’ll flip the params.
-   */
   getTrades(
     page: number,
     limit: number,

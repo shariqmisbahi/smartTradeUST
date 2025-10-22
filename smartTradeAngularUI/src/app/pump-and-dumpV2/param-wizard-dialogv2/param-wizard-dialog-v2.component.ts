@@ -137,8 +137,8 @@ export class ParamWizardDialogv2Component {
   private destroy$ = new Subject<void>();
 
   isSubmitting = false;
-  //apiUrl = 'http://localhost:5294/api/assets/detect/pump-dump/manual';
-  apiUrl = 'http://localhost:5294/simulate/alerts/calibrate';
+  //apiUrl = ' https://smart-trade.ustsea.com/api/api/assets/detect/pump-dump/manual';
+  apiUrl = ' https://smart-trade.ustsea.com/api/simulate/alerts/calibrate';
 
   resampleOptions = ['1min', '5min', '15min', '30min', '60min'];
 

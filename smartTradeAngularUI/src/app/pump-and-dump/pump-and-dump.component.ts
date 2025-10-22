@@ -28,6 +28,7 @@ import { ManualResponse } from './../services/rule-engine.service';
 import { ParamWizardDialogComponent } from './param-wizard-dialog/param-wizard-dialog.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { apiUrl } from '../../environments/environment';
 
 // interface Trade {
 //   timestamp: string;
@@ -146,9 +147,14 @@ export class PumpAndDumpComponent implements OnInit {
     'https://www.bursamalaysia.com/bm/about_bursa/media_centre/bursa-malaysia-reprimands-fines-and-orders-to-strike-off-heah-sieu-tee-for-engaging-in-unethical-slash-false-trading-activities';
   // NOTE: The Swagger URL points to docs. Use the JSON API route that returns the data.
   // If your server exposes a different path, change API_URL below accordingly.
-  // Example operational endpoint: http://localhost:5294/api/features/data/trades
-  readonly API_URL =
-    'http://localhost:5294/api/assets/export-faults?csv_filename=trades.csv&limit=100&newest_first=true';
+
+  readonly API_URL = (() => {
+    const u = new URL(apiUrl('assets/export-faults'));
+    u.searchParams.set('csv_filename', 'trades.csv');
+    u.searchParams.set('limit', String(100));
+    u.searchParams.set('newest_first', String(true));
+    return u.toString();
+  })();
 
   displayedColumns = ['serial', 'link'];
   resultRows = [{ url: this.BURSA_LINK, text: 'LINK' }]; //

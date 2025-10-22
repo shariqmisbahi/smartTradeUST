@@ -11,6 +11,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { VerificationDialogComponent } from '../pump-and-dumpV2/verification-dialog/verification-dialog.component';
+import { apiUrl } from '../../environments/environment';
 
 @Component({
   selector: 'app-final-verification',
@@ -47,7 +48,7 @@ export class FinalVerificationComponent implements OnInit, OnDestroy {
       width: '775px',
       disableClose: true,
       data: {
-        apiUrl: 'http://localhost:5294/reports/template', // <-- use GET route
+        apiUrl: apiUrl('reports/template'),
       },
     });
     ref.afterClosed().subscribe(() => (this.verifying = false));
@@ -57,4 +58,3 @@ export class FinalVerificationComponent implements OnInit, OnDestroy {
     console.log('FinalVerificationComponent destroyed');
   }
 }
-// //        //apiUrl: 'http://localhost:5294/reports/ml/high-risk.pdf?limit=20',

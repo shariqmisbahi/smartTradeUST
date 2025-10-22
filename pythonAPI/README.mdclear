@@ -1,0 +1,8 @@
+﻿# AGV Realtime
+Monorepo:
+- backend/  (.NET, SignalR)
+- frontend/ (Angular + D3)
+
+## Dev
+Backend:  cd backend/AgvRealtime.Api ; dotnet run
+Frontend: cd frontend/agv-dashboard   ; ng serve -o

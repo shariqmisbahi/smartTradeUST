@@ -29,6 +29,7 @@ import { finalize, timer, switchMap } from 'rxjs';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ApiPnDResponse, PumpDumpRow } from '../models/pumpdump.models';
 import { ExplainDialogMlComponent } from '../explain-dialog-ml/explain-dialog-ml.component';
+import { apiUrl } from '../../environments/environment';
 
 // keep this path consistent
 
@@ -71,8 +72,7 @@ export class MLDrivenCalibrationComponent implements OnInit, OnDestroy {
   error = signal<string | null>(null);
   meta = signal<Omit<ApiPnDResponse, 'results'> | null>(null);
   rows = signal<PumpDumpRow[]>([]);
-  private readonly CALIBRATE_URL_FOR_ML =
-    'http://localhost:5294/pumpdumpml/detect';
+  private readonly CALIBRATE_URL_FOR_ML = apiUrl('pumpdumpml/detect');
   // ===== ML Tab =====
   rowDataML: any[] = [];
   colDefsML: ColDef[] = [];

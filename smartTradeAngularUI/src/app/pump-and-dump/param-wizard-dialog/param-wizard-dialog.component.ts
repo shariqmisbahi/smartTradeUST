@@ -23,6 +23,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { timer, take, Subject, takeUntil } from 'rxjs';
 import { GridOptions, ValueGetterParams } from 'ag-grid-community';
+import { apiUrl } from '../../environments/environment';
 
 export interface Params {
   window_minutes: number;
@@ -121,9 +122,12 @@ export class ParamWizardDialogComponent {
   private destroy$ = new Subject<void>();
 
   isSubmitting = false;
-  //apiUrl = 'http://localhost:5294/api/assets/detect/pump-dump/manual';
-  apiUrl =
-    'http://localhost:5294/api/assets/verify-latest?explain=full&limit=20';
+  apiUrl = (() => {
+    const u = new URL(apiUrl('assets/verify-latest'));
+    u.searchParams.set('explain', 'full');
+    u.searchParams.set('limit', '20');
+    return u.toString();
+  })();
 
   resampleOptions = ['1min', '5min', '15min', '30min', '60min'];
 

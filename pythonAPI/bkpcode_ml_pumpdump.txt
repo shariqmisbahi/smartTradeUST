@@ -1,0 +1,458 @@
+# api/endpoints/pumpdump_ml_engine.py
+# FastAPI endpoint to evaluate Pump & Dump parquet with ML models + feature engineering
+# - Features: order lifecycle, market impact, pattern recognition
+# - Models: RandomForest (supervised if labels available), IsolationForest (unsupervised), Ensemble
+# - Outputs: enriched parquet with *_score columns + JSON summary
+
+from __future__ import annotations
+
+from fastapi import APIRouter, Body
+from pydantic import BaseModel, Field
+from typing import List, Optional, Literal, Dict, Any
+import numpy as np
+import pandas as pd
+from pathlib import Path
+from datetime import timedelta
+from sklearn.ensemble import RandomForestClassifier, IsolationForest
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import roc_auc_score
+import joblib
+import os
+
+router = APIRouter(prefix="/pumpdumpml", tags=["Pump & Dump (ML)"])
+
+# ---------- Pydantic schemas ----------
+
+class AlgoOptions(BaseModel):
+    use_random_forest: bool = True
+    use_isolation_forest: bool = True
+    use_ensemble: bool = True
+    save_models: bool = False                 # if True, saves fitted models to disk
+    model_dir: Optional[str] = None           # where to save models (if enabled)
+
+class ScoringWeights(BaseModel):
+    volume_weight: float = 0.35
+    time_gap_weight: float = 0.20
+    price_dev_weight: float = 0.30
+    impact_weight: float = 0.15
+
+    def normalized(self) -> "ScoringWeights":
+        arr = np.array([self.volume_weight, self.time_gap_weight, self.price_dev_weight, self.impact_weight], dtype=float)
+        s = arr.sum()
+        if s <= 0:
+            return ScoringWeights()
+        arr = arr / s
+        return ScoringWeights(
+            volume_weight=float(arr[0]),
+            time_gap_weight=float(arr[1]),
+            price_dev_weight=float(arr[2]),
+            impact_weight=float(arr[3]),
+        )
+
+class FeatureParams(BaseModel):
+    by: Literal["security_name","symbol","security_id","brokerage","none"] = "security_name"
+    # rolling windows (in rows) for surges/bursts; robust if data is sparse
+    volume_roll: int = 20
+    price_roll: int = 20
+    impact_roll: int = 50
+    min_group_size: int = 10
+
+class DetectRequest(BaseModel):
+    out_dir: str = Field(..., description="Folder with simulated alerts parquet files")
+    parquet_path: Optional[str] = Field(None, description="If provided, load exactly this parquet; otherwise auto-pick latest Pump & Dump file in out_dir")
+    limit: Optional[int] = None
+    seed: int = 42
+    algo: AlgoOptions = AlgoOptions()
+    weights: ScoringWeights = ScoringWeights()
+    feat: FeatureParams = FeatureParams()
+    label_column: Optional[str] = Field(None, description="Optional supervised label column (e.g., 'is_true_positive' -> 0/1)")
+
+class DetectResponse(BaseModel):
+    message: str
+    model_summary: Dict[str, Any]
+    saved_parquet: str
+    count: int
+    features_built: List[str]
+    scores_added: List[str]
+    sample_columns: List[str]
+
+
+# ---------- Utility helpers ----------
+
+PUMP_DUMP_HINTS = ("pump", "dump", "ramping", "Pump and Dump", "Pump-and-Dump")
+
+def _find_latest_pumpdump_parquet(folder: Path) -> Path:
+    cands = []
+    for p in folder.glob("*.parquet"):
+        name = p.name.lower()
+        if any(h.lower() in name for h in PUMP_DUMP_HINTS):
+            cands.append(p)
+    if not cands:
+        # If you name files generically, just fallback to latest .parquet
+        cands = list(folder.glob("*.parquet"))
+    if not cands:
+        raise FileNotFoundError(f"No parquet files found in {folder}")
+    return max(cands, key=lambda p: p.stat().st_mtime)
+
+
+def _ensure_dt(df: pd.DataFrame) -> pd.DataFrame:
+    cand_cols = [c for c in df.columns if "time" in c.lower() or "ts" in c.lower() or "timestamp" in c.lower()]
+    if cand_cols:
+        col = cand_cols[0]
+        # Keep tz-aware in UTC; downstream code now handles it safely
+        df[col] = pd.to_datetime(df[col], errors="coerce", utc=True)
+    return df
+
+
+
+def _group_key(df: pd.DataFrame, feat: FeatureParams) -> Optional[str]:
+    if feat.by == "none":
+        return None
+    for c in df.columns:
+        if c.lower() == feat.by.lower():
+            return c
+    # fallback to a sensible identifier if requested key is missing
+    fallback = None
+    for probe in ("security_name","symbol","security_id"):
+        if probe in df.columns:
+            fallback = probe
+            break
+    return fallback
+
+
+def _first_present(df: pd.DataFrame, candidates: List[str]) -> Optional[str]:
+    for c in candidates:
+        if c in df.columns:
+            return c
+    return None
+
+
+def _build_features(df: pd.DataFrame, feat: FeatureParams) -> pd.DataFrame:
+    """
+    Build robust features with graceful fallbacks:
+    - volume_surge: current volume vs rolling median
+    - price_dislocation: zscore of price vs rolling mean
+    - time_gap_burst: seconds since previous trade (inverse burstiness)
+    - impact_est: |return| * volume (proxy)
+    Works per-group (security) when possible; else global.
+    """
+    df = df.copy()
+    df = _ensure_dt(df)
+
+    # identify usable columns
+    vol_col = _first_present(df, ["volume","qty","trade_qty","total_volume"])
+    price_col = _first_present(df, ["price","last_price","close","close_price"])
+    ts_col = _first_present(df, [c for c in df.columns if "time" in c.lower() or "timestamp" in c.lower() or "ts" in c.lower()])
+
+    # set missing basics to safe defaults
+    if vol_col is None:
+        df["__vol__"] = 1.0
+        vol_col = "__vol__"
+    if price_col is None:
+        df["__px__"] = df.get("rubric_score", pd.Series(0.0, index=df.index)) + 1.0
+        price_col = "__px__"
+
+    key = _group_key(df, feat)
+
+    def per_group(g: pd.DataFrame) -> pd.DataFrame:
+        g = g.sort_values(ts_col) if ts_col else g
+
+        # --- volume_surge ---
+        vol = g[vol_col].astype(float)
+        vol_roll_med = vol.rolling(max(3, min(len(g), feat.volume_roll)), center=False).median()
+        g["feat_volume_surge"] = (vol / (vol_roll_med.replace(0, np.nan))).fillna(0.0)
+
+        # --- price_dislocation (z-score) ---
+        px = g[price_col].astype(float)
+        roll = max(5, min(len(g), feat.price_roll))
+        mu = px.rolling(roll).mean()
+        sd = px.rolling(roll).std(ddof=0)
+        g["feat_price_dislocation"] = ((px - mu) / (sd.replace(0, np.nan))).fillna(0.0)
+
+        # --- time_gap_burst (short gaps -> bigger score) ---
+       # --- time_gap_burst (short gaps -> bigger score) ---
+        if ts_col and g[ts_col].notna().any():
+            # Make sure the series is datetime and UTC tz-aware
+            dt = pd.to_datetime(g[ts_col], errors="coerce", utc=True)
+
+            # Compute seconds between consecutive events (works for tz-aware)
+            gaps = dt.diff().dt.total_seconds()
+
+            # Robust fallback if the first gap is NaN or all equal
+            fallback = float(np.nanmedian(gaps)) if np.isfinite(np.nanmedian(gaps)) else 60.0
+            gaps = gaps.fillna(fallback).replace(0.0, np.nan)
+
+            # invert & z-normalize: shorter gap -> larger burst
+            inv = 1.0 / gaps
+            inv = (inv - np.nanmean(inv)) / (np.nanstd(inv) + 1e-9)
+            g["feat_time_gap_burst"] = inv.fillna(0.0)
+        else:
+            g["feat_time_gap_burst"] = 0.0
+
+
+        # --- impact_est (|return| * volume) ---
+        ret = px.pct_change().fillna(0.0)
+        impact_roll = max(5, min(len(g), feat.impact_roll))
+        base_impact = (ret.abs() * vol).rolling(impact_roll).mean().fillna(0.0)
+        # scale to z-score
+        if base_impact.std(ddof=0) > 0:
+            base_impact = (base_impact - base_impact.mean()) / (base_impact.std(ddof=0) + 1e-9)
+        g["feat_impact_est"] = base_impact
+
+        return g
+
+    if key and key in df.columns:
+        # drop tiny groups to avoid noisy stats
+        df = df.groupby(key, group_keys=False).apply(
+            lambda g: per_group(g) if len(g) >= feat.min_group_size else g.assign(
+                feat_volume_surge=0.0, feat_price_dislocation=0.0, feat_time_gap_burst=0.0, feat_impact_est=0.0
+            )
+        )
+    else:
+        df = per_group(df)
+
+    # Simple pattern flag: joint extreme across volume & price (proxy for ramping)
+    df["feat_pattern_spike"] = ((df["feat_volume_surge"] > 2.0) & (df["feat_price_dislocation"].abs() > 2.0)).astype(float)
+
+    # Final feature list
+    feature_cols = [
+        "feat_volume_surge", "feat_price_dislocation",
+        "feat_time_gap_burst", "feat_impact_est", "feat_pattern_spike"
+    ]
+    # Fill any remaining NaNs
+    df[feature_cols] = df[feature_cols].replace([np.inf, -np.inf], np.nan).fillna(0.0)
+
+    return df
+
+
+def _manipulation_scoring(df: pd.DataFrame, weights: ScoringWeights) -> pd.DataFrame:
+    """Rule-inspired confidence components combined into a single rubric-like ML score."""
+    w = weights.normalized()
+    df = df.copy()
+    df["score_volume"] = np.tanh(df["feat_volume_surge"] / 3.0)
+    df["score_time_gap"] = np.tanh(df["feat_time_gap_burst"] / 3.0)
+    df["score_price_dev"] = np.tanh(df["feat_price_dislocation"].abs() / 3.0)
+    df["score_impact"] = np.tanh(df["feat_impact_est"] / 3.0)
+
+    df["ml_confidence_score"] = (
+        w.volume_weight * df["score_volume"]
+        + w.time_gap_weight * df["score_time_gap"]
+        + w.price_dev_weight * df["score_price_dev"]
+        + w.impact_weight * df["score_impact"]
+    )
+    return df
+
+
+def _fit_random_forest(
+    df: pd.DataFrame,
+    feature_cols: List[str],
+    label_col: Optional[str],
+    seed: int
+) -> Pipeline:
+    """
+    If `label_col` is provided AND present with at least two classes,
+    fit a supervised RandomForest. Otherwise, bootstrap pseudo-labels
+    from ml_confidence_score median to keep the interface consistent.
+    """
+    X_all = df[feature_cols].values
+
+    # Decide whether we truly have supervised labels
+    supervised = (
+        label_col is not None
+        and label_col in df.columns
+        and df[label_col].notna().any()
+        and df[label_col].nunique(dropna=True) >= 2
+    )
+
+    clf = RandomForestClassifier(
+        n_estimators=400,
+        max_depth=None,
+        min_samples_leaf=2,
+        random_state=seed,
+        class_weight="balanced_subsample",
+        n_jobs=-1,
+    )
+    pipe = Pipeline([("scaler", StandardScaler()), ("rf", clf)])
+
+    if supervised:
+        work = df.dropna(subset=[label_col]).copy()
+        X = work[feature_cols].values
+        y = work[label_col].astype(int).values
+        pipe.fit(X, y)
+        return pipe
+
+    # Fallback: pseudo-labels from rule-inspired score
+    proxy = df.get("ml_confidence_score")
+    if proxy is None:
+        # ultra-fallback: zero-proxy prevents crash (not ideal, but safe)
+        proxy = pd.Series(np.zeros(len(df)), index=df.index)
+
+    median = float(np.nanmedian(proxy))
+    y_pseudo = (proxy > median).astype(int).values
+    pipe.fit(X_all, y_pseudo)
+    return pipe
+
+
+def _fit_isolation_forest(df: pd.DataFrame, feature_cols: List[str], seed: int) -> Pipeline:
+    X = df[feature_cols].values
+    iso = IsolationForest(
+        n_estimators=400, contamination="auto", random_state=seed, n_jobs=-1, bootstrap=True
+    )
+    pipe = Pipeline([("scaler", StandardScaler()), ("iso", iso)])
+    pipe.fit(X)
+    return pipe
+
+
+def _ensemble_score(rf_prob: Optional[np.ndarray], iso_score: Optional[np.ndarray]) -> np.ndarray:
+    # Normalize ISO score to 0..1 "anomalousness"
+    iso_norm = None
+    if iso_score is not None:
+        # IsolationForest gives higher scores for less anomalous points; invert
+        iso_norm = 1.0 - (iso_score - np.min(iso_score)) / (np.ptp(iso_score) + 1e-9)
+
+    if rf_prob is None and iso_norm is None:
+        return np.zeros(0)
+    if rf_prob is None:
+        return iso_norm
+    if iso_norm is None:
+        return rf_prob
+    # Weighted blend leans toward supervised signal when present
+    return 0.65 * rf_prob + 0.35 * iso_norm
+
+
+# ---------- Endpoint ----------
+
+@router.post("/detect", response_model=DetectResponse)
+def detect_pumpdump_ml(req: DetectRequest = Body(...)):
+    rng = np.random.RandomState(req.seed)
+    out_dir = Path(req.out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    # 1) Load parquet
+    if req.parquet_path:
+        parquet_path = Path(req.parquet_path)
+        if not parquet_path.exists():
+            raise FileNotFoundError(f"Parquet not found: {parquet_path}")
+    else:
+        parquet_path = _find_latest_pumpdump_parquet(out_dir)
+
+    df = pd.read_parquet(parquet_path)
+    if req.limit:
+        df = df.head(req.limit).copy()
+
+    # 2) Build features (robust to missing cols)
+    df = _build_features(df, req.feat)
+    feature_cols = [c for c in df.columns if c.startswith("feat_")]
+
+    # 3) Rule-inspired manipulation sub-scores + composite
+    df = _manipulation_scoring(df, req.weights)
+    score_cols = ["score_volume","score_time_gap","score_price_dev","score_impact","ml_confidence_score"]
+
+    # 4) Fit / score models
+    rf_prob = None
+    iso_raw = None
+    model_summary: Dict[str, Any] = {}
+
+    if req.algo.use_random_forest:
+        rf_pipe = _fit_random_forest(df, feature_cols, req.label_column or "", req.seed)
+        rf_prob = rf_pipe.predict_proba(df[feature_cols].values)[:, 1]
+        df["rf_score"] = rf_prob
+        if req.algo.save_models:
+            model_dir = Path(req.algo.model_dir or (out_dir / "models"))
+            model_dir.mkdir(parents=True, exist_ok=True)
+            joblib.dump(rf_pipe, model_dir / "rf_pumpdump.joblib")
+        # optional AUC if labels exist
+        auc = None
+        if req.label_column and req.label_column in df.columns and df[req.label_column].notna().any():
+            y_true = df[req.label_column].dropna().astype(int)
+            y_pred = pd.Series(rf_prob, index=df.index).loc[y_true.index]
+            try:
+                auc = roc_auc_score(y_true, y_pred)
+            except Exception:
+                auc = None
+        model_summary["random_forest_auc"] = auc
+
+    if req.algo.use_isolation_forest:
+        iso_pipe = _fit_isolation_forest(df, feature_cols, req.seed)
+        # decision_function: higher -> less anomalous
+        iso_raw = iso_pipe["iso"].decision_function(iso_pipe["scaler"].transform(df[feature_cols].values))
+        df["iso_raw_score"] = iso_raw
+        if req.algo.save_models:
+            model_dir = Path(req.algo.model_dir or (out_dir / "models"))
+            model_dir.mkdir(parents=True, exist_ok=True)
+            joblib.dump(iso_pipe, model_dir / "iso_pumpdump.joblib")
+
+    # 5) Ensemble
+    if req.algo.use_ensemble:
+        ens = _ensemble_score(rf_prob, iso_raw)
+        if ens.size == 0:
+            df["ensemble_score"] = 0.0
+        else:
+            df["ensemble_score"] = ens
+    else:
+        df["ensemble_score"] = df.get("rf_score", df.get("iso_raw_score", 0.0))
+
+    # 6) Final unified confidence (blend ML with manipulation sub-scores)
+    #    This keeps your rule/score interpretability while giving ML the steering power.
+    if "rf_score" in df and "ensemble_score" in df:
+        df["final_ml_confidence"] = 0.6 * df["ensemble_score"] + 0.4 * df["ml_confidence_score"]
+    else:
+        df["final_ml_confidence"] = df["ml_confidence_score"]
+
+    # 7) Save enriched parquet
+    out_name = parquet_path.stem + "_ml.parquet"
+    out_path = parquet_path.with_name(out_name)
+    df.to_parquet(out_path, index=False)
+
+    # 8) Prepare response
+    scores_added = ["rf_score"] * int("rf_score" in df.columns) + \
+                   ["iso_raw_score"] * int("iso_raw_score" in df.columns) + \
+                   ["ensemble_score","final_ml_confidence"] + score_cols
+
+    sample_cols = list({c for c in (["security_name","symbol","timestamp","price","volume","rubric_score"] + feature_cols + scores_added) if c in df.columns})
+    model_summary.update({
+        "rows_scored": int(len(df)),
+        "feature_count": int(len(feature_cols)),
+        "models_used": {
+            "random_forest": req.algo.use_random_forest,
+            "isolation_forest": req.algo.use_isolation_forest,
+            "ensemble": req.algo.use_ensemble
+        }
+    })
+
+    return DetectResponse(
+        message="Pump & Dump ML evaluation complete",
+        model_summary=model_summary,
+        saved_parquet=str(out_path),
+        count=int(len(df)),
+        features_built=feature_cols,
+        scores_added=scores_added,
+        sample_columns=sample_cols[:30],  # keep response lean
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  "out_dir": "C:/TradeMY3/data/resultAlert/ML",
+  "parquet_path": "C:/TradeMY3/data/results/ML",
+  "limit": 2000,
+  "seed": 42,
+  "algo": { "use_random_forest": true, "use_isolation_forest": true, "use_ensemble": true, "save_models": false },
+    "weights": { "volume_weight": 0.35, "time_gap_weight": 0.20, "price_dev_weight": 0.30, "impact_weight": 0.15 },
+    "feat": { "by": "security_name", "volume_roll": 20, "price_roll": 20, "impact_roll": 50, "min_group_size": 10 },
+    "label_column": "is_true_positive"
+}

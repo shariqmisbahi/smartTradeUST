@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ColDef } from 'ag-grid-community';
 import { finalize } from 'rxjs/operators';
+import { apiUrl } from '../../environments/environment';
 
 @Component({
   selector: 'app-pump-and-dump-ml',
@@ -31,8 +32,7 @@ export class PumpAndDumpMlComponent {
   loading = false;
   loaderUrl = 'assets/loader.gif';
 
-  private readonly CALIBRATE_URL =
-    'http://localhost:5294/simulate/alerts/calibrate';
+  private readonly CALIBRATE_URL = apiUrl('simulate/alerts/calibrate');
 
   constructor(private http: HttpClient) {}
 

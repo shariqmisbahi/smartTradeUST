@@ -1,0 +1,27 @@
+version: "3.9"
+
+networks:
+  ust-net:
+    name: ust-net
+    external: true  # create manually if it doesn't exist: docker network create ust-net
+
+services:
+  tradeapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tradeapi:latest
+    container_name: tradeapi
+    env_file:
+      - ./.env
+    ports:
+      - "5294:5294"
+    volumes:
+      - ./data:/app/data
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+      # If you keep code hot-reload during dev:
+      # - ./app:/app/backend/app
+    networks:
+      - ust-net
+    restart: unless-stopped
