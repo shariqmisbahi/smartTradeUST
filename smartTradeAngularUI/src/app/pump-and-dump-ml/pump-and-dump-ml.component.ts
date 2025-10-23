@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ColDef } from 'ag-grid-community';
 import { finalize } from 'rxjs/operators';
-import { apiUrl } from '../../environments/environment';
+import { apiUrl } from '../../app/config/api.config';
 
 @Component({
   selector: 'app-pump-and-dump-ml',

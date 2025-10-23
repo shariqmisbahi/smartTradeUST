@@ -28,7 +28,7 @@ import { ManualResponse } from './../services/rule-engine.service';
 import { ParamWizardDialogComponent } from './param-wizard-dialog/param-wizard-dialog.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { apiUrl } from '../../environments/environment';
+import { apiUrl } from '../../app/config/api.config';
 
 // interface Trade {
 //   timestamp: string;

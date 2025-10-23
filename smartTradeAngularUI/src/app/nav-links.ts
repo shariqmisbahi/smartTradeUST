@@ -23,7 +23,7 @@ export const NAV_LINKS: NavLink[] = [
   {
     label: 'Open/Close Analytics',
     route: '/advanced-analytics',
-    icon: 'bar-chart-3',
+    icon: 'alarm-clock',
   },
   { label: 'Pump & Dump', route: '/pump-and-dump', icon: 'trending-up' },
   { label: 'Insider Trading', route: '/insider-trading', icon: 'user' },

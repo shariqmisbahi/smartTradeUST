@@ -11,7 +11,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { VerificationDialogComponent } from '../pump-and-dumpV2/verification-dialog/verification-dialog.component';
-import { apiUrl } from '../../environments/environment';
+import { apiUrl } from '../../app/config/api.config';
 
 @Component({
   selector: 'app-final-verification',

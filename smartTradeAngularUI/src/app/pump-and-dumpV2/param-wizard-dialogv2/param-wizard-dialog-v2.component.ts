@@ -25,9 +25,11 @@ import {
 } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { timer, Subject, takeUntil, interval, Observable } from 'rxjs';
+import { timer, Subject, takeUntil, Observable } from 'rxjs';
 import { GridOptions, ValueGetterParams } from 'ag-grid-community';
 import { finalize } from 'rxjs/operators';
+import { apiUrl } from '../../config/api.config';
+
 export interface Params {
   window_minutes: number;
   dump_window_minutes: number;
@@ -137,8 +139,7 @@ export class ParamWizardDialogv2Component {
   private destroy$ = new Subject<void>();
 
   isSubmitting = false;
-  //apiUrl = ' https://smart-trade.ustsea.com/api/api/assets/detect/pump-dump/manual';
-  apiUrl = ' https://smart-trade.ustsea.com/api/simulate/alerts/calibrate';
+  //apiUrl = ' /api/simulate/alerts/calibrate';
 
   resampleOptions = ['1min', '5min', '15min', '30min', '60min'];
 
@@ -296,30 +297,11 @@ export class ParamWizardDialogv2Component {
     params: Params;
     weights: Weights;
   }): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.apiUrl, payload);
+    return this.http.post<ApiResponse>(
+      this.url('simulate/alerts/calibrate'),
+      payload
+    );
   }
-  /** The actual API call (same behavior you had, just factored out) */
-  // private postToApi(payload: {
-  //   start: string;
-  //   end: string;
-  //   params: Params;
-  //   weights: Weights;
-  // }): void {
-  //   this.http.post<ApiResponse>(this.apiUrl, payload).subscribe({
-  //     next: (res) => {
-  //       this.isSubmitting = false;
-
-  //       this.snack.open(`${res.message} (${res.count} incidents)`, 'OK', {
-  //         duration: 1000,
-  //       });
-  //       this.ref.close({ payload, response: res });
-  //     },
-  //     error: (err: HttpErrorResponse) => {
-  //       console.error('422 details:', err.error?.detail ?? err.error);
-  //       alert(JSON.stringify(err.error?.detail ?? err.error, null, 2));
-  //     },
-  //   });
-  //
 
   OnInit(): void {
     console.log('ngOnInit called');
@@ -327,6 +309,19 @@ export class ParamWizardDialogv2Component {
 
   finish() {
     this.executeWizardAndClose();
+  }
+
+  private url(
+    path: string,
+    params?: Record<string, string | number | boolean | undefined>
+  ) {
+    const base = apiUrl(path); // joins with environment.API_BASE
+    if (!params) return base;
+    const u = new URL(base);
+    Object.entries(params).forEach(([k, v]) => {
+      if (v !== undefined && v !== null) u.searchParams.set(k, String(v));
+    });
+    return u.toString();
   }
 
   OnDestroy(): void {

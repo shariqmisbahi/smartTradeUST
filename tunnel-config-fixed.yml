@@ -1,0 +1,36 @@
+# Cloudflare Tunnel Configuration for smartTradeUST
+# Use existing tunnel: my-tunnel (32fd58f7-2af5-4776-9ac1-ef2557e466d3)
+
+tunnel: 32fd58f7-2af5-4776-9ac1-ef2557e466d3
+credentials-file: /home/sshuser/.cloudflared/32fd58f7-2af5-4776-9ac1-ef2557e466d3.json
+
+# Ingress rules - IMPORTANT: Order matters!
+ingress:
+  # Route 1: API endpoints (MUST come before catch-all)
+  - hostname: smart-trade.ustsea.com
+    path: /api/*
+    service: http://localhost:5294
+    originRequest:
+      noTLSVerify: true
+      connectTimeout: 30s
+      keepAliveTimeout: 90s
+
+  # Route 2: API docs (specific paths)
+  - hostname: smart-trade.ustsea.com
+    path: /api/docs
+    service: http://localhost:5294
+    originRequest:
+      noTLSVerify: true
+
+  # Route 3: Frontend - ALL other requests
+  - hostname: smart-trade.ustsea.com
+    service: http://localhost:4100
+    originRequest:
+      noTLSVerify: true
+      connectTimeout: 30s
+
+  # Route 4: Catch-all 404 (required)
+  - service: http_status:404
+
+# Logging
+loglevel: info

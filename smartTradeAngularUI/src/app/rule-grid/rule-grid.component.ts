@@ -28,7 +28,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 //import { finalize, timer, switchMap } from 'rxjs';
 import { MatTabsModule } from '@angular/material/tabs';
-import { apiUrl } from '../../environments/environment';
+import { apiUrl } from '../../app/config/api.config';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 

@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiPnDResponse } from '../models/pumpdump.models';
-import { apiUrl } from '../../environments/environment';
+import { apiUrl } from '../../app/config/api.config';
 
 @Injectable({ providedIn: 'root' })
 export class PumpDumpService {

@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { apiUrl } from '../../environments/environment';
+import { apiUrl } from '../../app/config/api.config';
 
 export interface RefineExtras {
   tp_count: number;
@@ -30,7 +30,6 @@ export class InsiderTradingRefineService {
   private http = inject(HttpClient);
 
   async refine(payload: {
-    out_dir: string;
     limit: number;
     return_mode: ReturnMode;
     params: {

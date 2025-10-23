@@ -29,7 +29,7 @@ import { finalize, timer, switchMap } from 'rxjs';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ApiPnDResponse, PumpDumpRow } from '../models/pumpdump.models';
 import { ExplainDialogMlComponent } from '../explain-dialog-ml/explain-dialog-ml.component';
-import { apiUrl } from '../../environments/environment';
+import { apiUrl } from '../../app/config/api.config';
 
 // keep this path consistent
 

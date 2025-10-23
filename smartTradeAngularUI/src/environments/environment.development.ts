@@ -1,4 +1,3 @@
-// src/environments/environment.development.ts
 // Development environment config for Angular app
 
 export const environment = {
@@ -11,11 +10,12 @@ export const environment = {
    * If you want to point DEV at your deployed API, switch to the prod URL.
    */
   // Local backend during development:
-  API_BASE: 'http://localhost:5294/',
+  API_BASE: 'http://localhost:5294/api',
   // Or, to test against the deployed backend in dev, use:
   // API_BASE: 'https://smart-trade.ustsea.com/api/',
 
   /** Optional app metadata */
+
   appName: 'SmartTrade (Dev)',
   build: {
     version: 'DEV',

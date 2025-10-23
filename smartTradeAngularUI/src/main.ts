@@ -25,9 +25,12 @@ import {
   ArrowUpRight,
 } from 'lucide-angular';
 import { importProvidersFrom } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
+
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
+    provideAnimations(),
     provideHttpClient(withFetch()),
     importProvidersFrom(
       LucideAngularModule.pick({

@@ -8,7 +8,7 @@ services:
   api:
     container_name: smarttrade-api
     build:
-      context: ./pythonApi
+      context: ./pythonAPI
     env_file:
       - ./env.txt
     environment:
@@ -16,11 +16,11 @@ services:
     ports:
       - "5294:5294"
     volumes:
-      - ./pythonApi/app:/app/app:rw
-      - ./pythonApi/data:/app/data:rw
-      - ./pythonApi/logs:/app/logs:rw
-      - ./pythonApi/uploads:/app/uploads:rw
-      - ./pythonApi/env.txt:/app/env.txt:ro
+      - ./pythonAPI/app:/app/app:rw
+      - ./pythonAPI/data:/app/data:rw
+      - ./pythonAPI/logs:/app/logs:rw
+      - ./pythonAPI/uploads:/app/uploads:rw
+      - ./pythonAPI/env.txt:/app/env.txt:ro
     networks: [ust-net]
     command: ["/bin/bash", "-lc", "/app/start.sh"]
     restart: unless-stopped
@@ -36,9 +36,8 @@ services:
       - /usr/src/app/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true
+      # Optionally tell your UI how to reach the API on the same network:
+      # - API_BASE_URL=http://smarttrade-api:5294
     networks: [ust-net]
-    # IMPORTANT: run the global Angular CLI directly
-    command: ["sh","-lc","exec /usr/local/bin/ng serve --host 0.0.0.0 --port 4100 --poll 2000 --verbose"]
+    command: ["bash", "-lc", "npm run build:prod"]
     restart: unless-stopped
-
-

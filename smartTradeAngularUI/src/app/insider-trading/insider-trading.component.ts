@@ -28,7 +28,7 @@ ModuleRegistry.registerModules([AllCommunityModule]);
     AgGridAngular,
     MatDialogModule, // <-- NEW
     MatButtonModule, // <-- NEW
-    LucideAngularModule
+    LucideAngularModule,
   ],
   templateUrl: './insider-trading.component.html',
   styleUrl: './insider-trading.component.css',
@@ -156,10 +156,9 @@ export class InsiderTradingComponent {
   }
 
   loadData(): void {
-    const outDir = 'C:/TradeMY3/data/simulated';
     const limit = 200;
 
-    this.api.getLatest(outDir, limit).subscribe({
+    this.api.getLatest(limit).subscribe({
       next: (rows) => {
         this.rowDataGrid1 = rows;
         // If you want to auto size after data loads, you can use grid API if available:
@@ -174,7 +173,6 @@ export class InsiderTradingComponent {
 
   // Grid 2 - Refined Results
   // ------------ UI state ------------
-  outDir = 'C:/TradeMY3/data/simulated';
   limit = 200;
   returnMode: ReturnMode = 'tp_only';
   thresholdMode: ThresholdMode = 'fixed';
@@ -395,7 +393,6 @@ export class InsiderTradingComponent {
 
     try {
       const payload = {
-        out_dir: this.outDir,
         limit: this.limit,
         return_mode: this.returnMode,
         params: {

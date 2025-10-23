@@ -3,9 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 4100 --configuration development",
     "start-docker": "ng serve --host 0.0.0.0 --port 4100 --poll 2000",
+    "start-prod": "node server-prod.js",
     "build": "ng build",
+    "build:prod": "npm run build && npm run start-prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:smartTradeAngularUI": "node dist/smartTradeAngularUI/server/server.mjs",

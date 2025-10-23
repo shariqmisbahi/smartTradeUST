@@ -23,7 +23,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { timer, take, Subject, takeUntil } from 'rxjs';
 import { GridOptions, ValueGetterParams } from 'ag-grid-community';
-import { apiUrl } from '../../environments/environment';
+import { apiUrl } from '../../app/config/api.config';
 
 export interface Params {
   window_minutes: number;

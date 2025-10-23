@@ -1,4 +1,3 @@
-// src/environments/environment.ts
 // Prod/default environment config for Angular app
 
 export const environment = {

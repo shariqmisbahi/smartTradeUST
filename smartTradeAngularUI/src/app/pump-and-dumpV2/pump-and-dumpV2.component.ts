@@ -36,8 +36,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ParamWizardDialogv2Component } from '../pump-and-dumpV2/param-wizard-dialogv2/param-wizard-dialog-v2.component';
 import { ExplainDialogMlComponent } from '../explain-dialog-ml/explain-dialog-ml.component'; // keep this path consistent
 import { VerificationDialogComponent } from './verification-dialog/verification-dialog.component';
-import { apiUrl } from '../../environments/environment';
-
+import { apiUrl } from '../../app/config/api.config';
 export interface Explanation {
   criterion: string;
   value: number | string | boolean | null;
